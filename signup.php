@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':password', $password);
 
         if ($stmt->execute()) {
+            header('Location: inicio.php');
             $success = 'Datos guardados exitosamente.';
             echo $success;
         } else {

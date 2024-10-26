@@ -1,64 +1,77 @@
+
 <?php
+
 session_start();
-
-//credenciales de acceso
-$DATABASE_HOST = 'localhost'; //127.0.0.1
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'TsB'; //nombre de la base de datos
-
-// conexion a la base de datos
-$conexion = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-if (mysqli_connect_error()) {
-    // error en la conexión
-    exit('Fallo en la conexión de MySQL:' . mysqli_connect_error());
-}else{
- 
-    if (empty($_POST['email']) && empty( $_POST['password'])) {
-        // si no hay datos muestra error y envía a la página de inicio
-        header('Location:index.html');
-    }else{
- 
-      // evitar inyección sql
-    if ($stmt = $conexion->prepare('select email, from datosusuarios where email = ?')) {
-        // parámetros de enlace de la cadena s
-        $stmt->bind_param('s', $_POST['username']);
-        $stmt->execute();
-        $stmt->store_result();
- 
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $password, $tipo);
-            $stmt->fetch();
- 
-            if($_POST['password'] === $password ){
- 
-                session_regenerate_id();
- 
-                $_SESSION['loggedin'] = TRUE;
-                $_SESSION['username'] = $_POST['username'];
-                $_SESSION['id'] = $id;
-       
-                header('Location: inicio.php');
-            }else{
- 
-                // username incorrecto
-                echo "<script> alert('La contraseña es incorrecta!!');
-                         window.location= 'index.php'
-                     </script>";
-           
-                //  header('Location: .index.php');    
-            }
-            }
-        else {
-            // username incorrecto
-            header('Location: index.php');
-        }
-        $stmt->close();
- 
-    }
+if(isset($_session['loggedin'])){
+    header('Location: inicio.php');
+    exit;
 }
- 
-}
- 
- 
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+
+    <style>
+
+        header{
+            text-align: center;
+            background-color: rgb(19, 110, 39);
+            font-style: italic;
+            color: rgb(219, 219, 10);
+        }
+        @keyframes rgb-border {
+        0% {
+          border-color: red;
+        }
+        33% {
+          border-color: green;
+        }
+        66% {
+          border-color: blue;
+        }
+        100% {
+          border-color: red;
+        }
+      }
+      .login {
+        text-align: center;
+        align-content: center;
+        align-items: center;
+        border: 5px solid;
+        animation: rgb-border 3s infinite;
+        padding: 0px; 
+        border-radius: 10px;
+        background-color: rgb(28, 209, 140);
+        height: 15cm;    
+        margin-inline: 10cm;
+        }
+    </style>
+</head>
+<header>
+    <h1>WELCOME</h1>
+</header>
+<body>
+   <form class="login" action="loginverify.php" method="post">
+    <H2>Login</H2>
+    <div class="form-floating mb-3" >
+        <input type="email" class="form-control" id="floatingInput" placeholder="" name="email">
+        <label  for="floatingInput"> Email </label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <br>
+        <input type="submit" value="Login">
+</form>
+</body>
+</html>

@@ -30,16 +30,16 @@ require 'conexionbd.php';
             <br>
             <form action="vendedoresbd.php" method="post">
                 <header>Vendedores</header>
-                <label for="Nombre">Nombre</label>
+                <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" id="nombre">
 
-                <label for="Apellido">Apellidos</label>
-                <input type="text" name="apellidos" id="apellidos">
+                <label for="apellido">Apellidos</label>
+                <input type="text" name="apellido" id="apellido">
 
-                <label for="Telefono">Telefono</label>
+                <label for="telefono">Telefono</label>
                 <input type="number" name="telefono" id="telefono">
 
-                <label for="Email">Email</label>
+                <label for="email">Email</label>
                 <input type="email" name="email" id="email">
 
                 <label for="emailderepuesto">Email secundario</label>

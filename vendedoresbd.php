@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
     if (empty($nombre) || empty($apellido) || empty($telefono) || empty($email) || empty($emailderepuesto)){
         $error = "Por favor, complete todos los campos";
         echo $error;
-        header('Location:vendedores.php');
+        header('Location:registronegocio.php');
         exit;
     } else {
 

@@ -22,6 +22,11 @@
         </ul>
     </div>
     </section>
+    <section id="section2">
+        <button>
+            <a href="cerrarsesion.php">Cerrar Sesion</a>
+        </button>
+    </section>
     </main>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
 session_start();
 if(!isset($_SESSION['loggedin'])){
-    header('Location: login.php');
+    header('Location: loginuser.php');
     exit;
 }
 
@@ -66,33 +66,18 @@ if(!isset($_SESSION['loggedin'])){
     <div class="nav1">
         <nav>
             <ul class="barra">
-            <li class="elemento"><a href="index.html">Inicio</a></li>
-            <li class="elemento">Pendejadas</li>
-            <li class="elemento">Chingaderas</li>
-            <li class="elemento">Mas cosas</li>
-            <li class="elemento">Acerca de</li>
+            <li class="elemento"><a href="comida.php">Comidas</a></li>
+            <li class="elemento"><a href="mercerias.php">Papeleria y merceria</a></li>
+            <li class="elemento"><a href="ferreterias">Ferreterias</a></li>
+            <li class="elemento"><a href="otroservicio.php">Servicios</a></li>
+            <li class="elemento"><a href="acercade.php">Acerca de</a></li>
             </ul>
         </nav>
     </div>
     <main>
-    <p>aqui es la pagina bien verga de inicio</p>
-    <p>armando no puede caminar</p>
-    <aside class="section1">
-    <form action="seleccion.php" method="post">
-    <fieldset>
-        <legend>Armando puede caminar?</legend>
-        <input type="radio" name="eleccion" id="amigo" value="amigo">
-        <label for="amigo">Si ya se curo el pendejo</label>
-        <br>
-        <input type="radio" name="eleccion" id="internet">
-        <label for="internet">No aun esta cojo el pendejo</label>
-        <br>
-        <input type="radio" name="eleccion" id="pasando" value="pasando">
-        <label for="pasando">Le dicen el chueco por estar bien torcido</label>
-    </fieldset>
-    <input type="submit" value="SEND">
-    </form>
-    </aside>
+    <div class="main">
+        <p>aqui se pondran los diferentes negocios cerca de ti</p>
+    </div>
     <section>
         <a class="cerrar" href="cerrarsesion.php">Cerrar Sesion</a>
     </section>

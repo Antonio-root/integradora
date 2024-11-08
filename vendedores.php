@@ -1,11 +1,5 @@
 <?php
 
-//confirmar session
-session_start();
-if(!isset($_SESSION['loggedin'])){
-    header('Location: index.php');
-    exit;
-}
 
 
 require 'conexionbd.php';

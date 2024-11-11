@@ -1,11 +1,6 @@
 <?php
 
-//confirmar sesion
-session_start();
-if(!isset($_SESSION['loggedin'])){
-    header('Location:index.php');
-    exit;
-}
+
 require 'conexionbd.php';
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
@@ -25,7 +20,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
 
     //se validan los datos de entrada
     if(empty($nombredenegocios) ||  empty($ubicacion) || empty($horarios) || empty($contacto) || empty($tipodenegocio)){
-        header('Location:registronegocio.php');
+        header('Location:registronegocios.php');
         $error = "Por favor llenar todos los campos";
         echo $error;
         exit;
@@ -33,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     } else{
 
         //se insertan los datos  en la base de datos
-        $stmt = $pdo->prepare("INSERT INTO datosnegocios(nombredenegocios, ubicacion, horarios, contacto, tipodenegocio) VALUES (:nombredenegocios, :ubicacion, :horarios, :contacto, :tipodenegocio)");
+        $stmt = $pdo->prepare("INSERT INTO datosnegocio(nombredenegocios, ubicacion, horarios, contacto, tipodenegocio) VALUES (:nombredenegocios, :ubicacion, :horarios, :contacto, :tipodenegocio)");
         $stmt->bindParam(':nombredenegocios', $nombredenegocios);
         $stmt->bindParam(':ubicacion', $ubicacion);
         $stmt->bindParam(':horarios', $horarios);

@@ -1,11 +1,5 @@
 <?php
 
-//confirmar session
-session_start();
-if(!isset($_SESSION['loggedin'])){
-    header('Location: index.php');
-    exit;
-}
 
 require 'conexionbd.php';
 
@@ -29,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
     if (empty($nombre) || empty($apellido) || empty($telefono) || empty($email) || empty($emailderepuesto)){
         $error = "Por favor, complete todos los campos";
         echo $error;
-        header('Location:registronegocio.php');
+        header('Location:vendedores.php');
         exit;
     } else {
 
@@ -42,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
         $stmt->bindParam(':telefono', $telefono);
         
         if($stmt->execute()){
-            header('Location:registronegocio.php');
+            header('Location:registronegocios.php');
             echo 'Los datos fueron guardados correctamente';
     
         } else {

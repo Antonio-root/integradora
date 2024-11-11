@@ -1,11 +1,6 @@
 
 <?php
 
-session_start();
-if(isset($_session['loggedin'])){
-    header('Location: inicio.php');
-    exit;
-}
 
 ?>
 

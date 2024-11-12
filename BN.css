@@ -1,0 +1,176 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lobster',cursive;
+    box-sizing: border-box;
+   
+    
+}
+.atras{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    height: 100vh;
+    background-position: center;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-color: rgba(37, 179, 101, 0.664); 
+    
+}
+
+.banner{
+    position:absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    background-image:linear-gradient(rgba(30, 133, 61, 0.75),rgba(0, 0, 0, 0.75)), url(col.jpg);
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    
+   
+        
+}
+
+.navbar{
+    width: 85%;
+    margin:auto;
+    padding: 30px 10px;
+    display:inline-block;
+    align-items: center;
+    justify-content:space-between;
+    
+    
+}
+.fondo{
+    width: 120px;
+    cursor:auto;
+}
+.content{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #787878;
+}
+.content h1{
+    font-size: 70px;
+    margin-top: 80px;
+    
+
+}
+.content p{
+    margin: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+}
+button{
+    width: 287px;
+    padding: 30px 0;
+    text-align:center;
+    text-transform: uppercase;
+    margin: 20px 10px;
+    border-radius: 40px;
+    font-weight: bold;
+    border: 2px solid #035F12;
+    background: transparent;
+    color: #035f12;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: url(arbBott.jpg.jpg);
+    background-size:contain;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5); /*le da sombra*/
+    transition: .5s;
+    
+}
+
+span{
+   background: #026835; 
+   height: 100%;
+   width: 0;
+   border-radius: 40px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
+}
+button:hover span{
+    width: 100%;
+}
+button:hover{
+    border: none;
+}
+a{
+    position: relative;
+    margin: 10px;
+    padding: 30px;
+    text-align: center;
+    display: block;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 287px;
+    overflow: hidden;
+    border-radius: 40px;
+}
+
+a span{
+    position: relative;
+    color: #fff;
+    font-size: 27px;
+    letter-spacing: 8px;
+    z-index: 1;
+}
+a .liquid{
+    position: absolute;
+    top: -80%;
+    left: 0;
+    width: 287px;
+    height: 230px;
+    background: #026835;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .5);
+    transition: .5s;
+}
+
+a .liquid::after, 
+a .liquid::before{
+    content: '';
+    width: 170%;
+    height: 250%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000000;
+}
+a .liquid::before{
+    border-radius: 45%;
+    background: rgba(20, 20, 20, 1);
+    animation: animate 5s linear infinite;
+}
+a .liquid::after{
+border-radius: 40%;
+background: rgba(20, 20, 20, .5);
+animation: animate 10s linear infinite;
+
+}
+a:hover .liquid{
+    top: -139px;
+}
+@keyframes animate{
+    0%{
+        transform: translate(-50%, -75%) rotate(0deg);
+    }
+    100%{
+        transform: translate(-50%, -75%) rotate(360deg);
+}
+}

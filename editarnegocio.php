@@ -3,30 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi negocio</title>
+    <link rel="stylesheet" href="BN.css">
+    <title>publicación de servicio</title>
 
 </head>
-<body>
-    <main>
-    <header>
-        <h1>Bienvenido de vuelta -nombre del vendedor- :D</h1>
-    </header>
-    <section id="section1">
-    <div class="divmain">
-        <ul>
-            <li>Insertar foto</li>
-            <li>Hacer publicacion</li>
-            <li>Hacer una promocion</li>
-            <li>Mensajes</li>
-            <li>Editar informacion de contacto</li>
+<body class="atras">
+     <div class="banner"> <!--el banner es para mostrar el fondo-->
+        <div class="navbar"><!--barra de navegacion-->
+            <img src="fondo.png" class="fondo">
+            <div class="Content">
+                <h1>Bienvenido de nuevo</h1>
+                <p>Gestion de emprendimiento y mejor flujo para el emergente.<br>Hecho para la comunidad<br>T´sB</p>    
+             <div>
+                          
+                    <a href="#" >
+                <span>Agregar imagen</span>
+                <div class="liquid"> </div>   
+                     </a> 
+                <a href="#">
+                <span>Hacer publicación</span>
+                <div class="liquid"> </div>   
+                </a> 
+                <a href="#">
+                <span>Hacer Promocion</span>
+                <div class="liquid"> </div>   
+                </a> 
+                <a href="#">
+                <span>Mensajes</span>
+                <div class="liquid"> </div>   
+            </a>  
+               <a href="#">
+                <span>Editar Info</span>
+                <div class="liquid"> </div>   
+            </a>   
         </ul>
-    </div>
-    </section>
-    <section id="section2">
-        <button>
-            <a href="cerrarsesion.php">Cerrar Sesion</a>
-        </button>
-    </section>
-    </main>
+
+           
+                <button type="button"><span></span>Inicio</button>
+                <button type="button"><span></span>Cerrar sesión</button>
+             </div>
+               
+                
+
+             
+        </div>
+        </div>
 </body>
 </html>

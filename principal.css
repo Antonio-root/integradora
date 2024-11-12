@@ -13,14 +13,33 @@ header {
     padding: 10px 0;
 }
 
+.nav-links{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .nav-links ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
+    list-style: none;
+    text-align: right;
+    align-items: end;
+    
+}
+.left-side{
+  display: flex;
+}
+.left-side img{
+  margin-right: 10px;
+}
+.left-side h1{
+  margin: 0;
+  font-size: 24px;
+  color: white;
 }
 
 .nav-links li {
     margin: 0 15px;
+    display: inline;
 }
 
 .nav-links a {
@@ -37,6 +56,8 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
+    background-image: url(cool-background.png);
+    background-size: cover;
 }
 
 
@@ -237,3 +258,4 @@ footer {
   .see-more{
     text-decoration: none;
   }
+  

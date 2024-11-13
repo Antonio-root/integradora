@@ -258,4 +258,26 @@ footer {
   .see-more{
     text-decoration: none;
   }
+
+  .izquierda{
+    margin: 10px;
+    border-radius: 100vh;
+    border-style: solid;
+    width: 50%;
+    height: 100%;
+    background-color: #f2f2f2;
+    
+  }
+  #about-us{
+    margin: 10px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+  }
+  .derecha{
+    border-style: solid;
+    width: 50%;
+    height: 100%;
+    
+  }
   

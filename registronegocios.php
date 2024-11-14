@@ -8,7 +8,8 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     $ubicacion = $_POST['ubicacion'];
     $horarios  = $_POST['horarios'];
     $contacto = $_POST['contacto'];
-    $tipodenegocio = $_POST['tipodenegocio'];
+    $tipo = $_POST['tipo'];
+    $descripcion = $_POST['descripcion'];
 
     try {
         $pdo = new PDO("mysql:host=$DATABASE_HOST;dbname=$DATABASE_NAME", $DATABASE_USER,  $DATABASE_PASS);
@@ -19,7 +20,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     }
 
     //se validan los datos de entrada
-    if(empty($nombredenegocios) ||  empty($ubicacion) || empty($horarios) || empty($contacto) || empty($tipodenegocio)){
+    if(empty($nombredenegocios) ||  empty($ubicacion) || empty($horarios) || empty($contacto) || empty($tipo) || empty($descripcion)){
         header('Location:registronegocios.php');
         $error = "Por favor llenar todos los campos";
         echo $error;
@@ -28,12 +29,13 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     } else{
 
         //se insertan los datos  en la base de datos
-        $stmt = $pdo->prepare("INSERT INTO datosnegocio(nombredenegocios, ubicacion, horarios, contacto, tipodenegocio) VALUES (:nombredenegocios, :ubicacion, :horarios, :contacto, :tipodenegocio)");
+        $stmt = $pdo->prepare("INSERT INTO datosnegocios(nombredenegocios, ubicacion, horarios, contacto, tipo, descripcion) VALUES (:nombredenegocios, :ubicacion, :horarios, :contacto, :tipo, :descripcion)");
         $stmt->bindParam(':nombredenegocios', $nombredenegocios);
         $stmt->bindParam(':ubicacion', $ubicacion);
         $stmt->bindParam(':horarios', $horarios);
         $stmt->bindParam(':contacto', $contacto);
-        $stmt->bindParam(':tipodenegocio', $tipodenegocio);
+        $stmt->bindParam(':tipo', $tipo);
+        $stmt->bindParam(':descripcion', $descripcion);
         
         if ($stmt->execute()){
             header('Location:editarnegocio.php');
@@ -57,7 +59,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     <header>
         <h1>Aqui va el registro de negocios</h1>
     </header>
-    <form action="registronegocio.php" method="post">
+    <form action="registronegocios.php" method="post">
         <header>Registra tu negocio</header>
         <label for="nombredenegocios">Nombre de tu negocio</label>
         <input type="text" name="nombredenegocios" placeholder="Nombre del negocio">
@@ -71,9 +73,11 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
         <label for="contacto">Contacto de tu negocio</label>
         <input type="text" name="contacto" placeholder="Contacto del negocio">
         <br>
-        <label for="tipodenegocio">Tipo de negocio</label>
-        <input type="text" name="tipodenegocio" placeholder="Tipo de negocio">
+        <label for="tipo">Tipo de negocio</label>
+        <input type="text" name="tipo" placeholder="Tipo de negocio">
         <br>
+        <label for="descrpcion">Descripcion</label>
+        <textarea name="descripcion" placeholder="Descripcion del negocio"></textarea>
         <button type="submit">Registrar</button>
 
     </form>

@@ -3,7 +3,7 @@
 
 session_start();
 if(!isset($_SESSION['loggedin'])){
-    header('Location: loginuser.php');
+    header('Location: login.php');
     exit;
 }
 
@@ -70,7 +70,7 @@ if(!isset($_SESSION['loggedin'])){
             <li class="elemento"><a href="mercerias.php">Papeleria y merceria</a></li>
             <li class="elemento"><a href="ferreterias">Ferreterias</a></li>
             <li class="elemento"><a href="otroservicio.php">Servicios</a></li>
-            <li class="elemento"><a href="acercade.php">Acerca de</a></li>
+            <li class="elemento"><a href="comunidad.php">comunidad</a></li>
             </ul>
         </nav>
     </div>

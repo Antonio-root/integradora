@@ -11,17 +11,13 @@
     <main>
         <div class="registro-container">
             <h1>Registro de Usuario</h1>
-            <form id="registroForm" action="signup.php" method="post">
-                <label for="tipoUsuario">Tipo de Usuario:</label>
-                <select id="tipoUsuario" name="tipoUsuario" required>
-                    <option value="emprendedor">Emprendedor</option>
-                    <option value="consumidor">Consumidor</option>
-                </select>
+            <form id="registroForm" action="usuariosbd.php" method="post">
+               <header>Rgistrate con nosotros</header>
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
 
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" required>
+                <input type="text" id="apellidos" name="apellido" required>
 
                 <label for="email">Correo Electronico:</label>
                 <input type="email" id="email" name="email" required>
@@ -38,12 +34,6 @@
                 <label for="confirmPassword">Confirmar Contraseña:</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
                 
-                <div id="emprendedorFields" style="display: none;">
-                    <label for="edad">Edad:</label>
-                    <input type="number" id="edad" name="edad" min="18">
-                    <label for="negocio">Nombre del Negocio:</label>
-                    <input type="text" id="negocio" name="negocio">
-                </div>
                 <button type="submit">Registrarse</button>
             </form>
             <button><a href="index.html">Regresar</a></button>
@@ -52,22 +42,5 @@
     <footer>
         <p>&copy; 2024 Comercio Local</p>
     </footer>
-    <script>
-        document.getElementById('tipoUsuario').addEventListener('change', function () {
-            var emprendedorFields = document.getElementById('emprendedorFields');
-            var edad = document.getElementById('edad');
-            var negocio = document.getElementById('negocio');
-
-            if (this.value === 'emprendedor') {
-                emprendedorFields.style.display = 'block';
-                edad.required = true;
-                negocio.required = true;
-            } else {
-                emprendedorFields.style.display = 'none';
-                edad.required = false;
-                negocio.required = false;
-            }
-        });
-    </script>
 </body>
 </html>

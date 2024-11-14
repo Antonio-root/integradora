@@ -39,8 +39,8 @@
         </ul>
 
            
-                <button type="button"><span></span>Inicio</button>
-                <button type="button"><span></span>Cerrar sesión</button>
+                <button type="button" ><span></span><a href="inicio.php">Inicio</a></button>
+                <button type="button" href="cerrarsesion.php"><span></span><a href="cerrarsesion.php">Cerrar Sesion</a></button>
              </div>
                
                 

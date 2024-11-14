@@ -38,6 +38,9 @@ require 'conexionbd.php';
                 <label for="emailderepuesto">Email secundario</label>
                 <input type="email" name="emailderepuesto" id="emailrespuesto">
                 <br>
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password">
+                <br>
 
                 <button type="submit">Enviar</button>
 

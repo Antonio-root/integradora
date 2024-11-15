@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':password', $hashed_password);
 
         if ($stmt->execute()) {
+            $_SESSION['tipo'] = 'usuario';
+            $_SESSION['nombre'] = $nombre;
             header('Location: inicio.php');
             $success = 'Datos guardados exitosamente.';
             echo $success;

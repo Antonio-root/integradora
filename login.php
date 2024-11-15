@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['nombre'] = $nombre;
+                    $_SESSION['tipo'] = 'usuario';
             header("Location: inicio.php");
             exit;
         }
@@ -51,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['nombre'] = $nombre;
+                    $_SESSION['tipo'] = 'vendedor';
             header("Location: inicio.php");
             exit;
         }

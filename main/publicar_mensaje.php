@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '/integradora/requires/conexionbd.php';
+require_once '../requires/conexionbd.php';
 
 if (!isset($_SESSION['id_usuario']) && !isset($_SESSION['id_vendedor'])) {
     header("Location: /integradora/requires/login.php");

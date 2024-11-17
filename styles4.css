@@ -55,3 +55,6 @@ button{
     box-shadow: 0px 0ppx 5px rgba(15, 15, 15, 0.3);
     color: rgb(124, 216, 129);
 }
+body{
+    align-items: center;
+}

@@ -1,7 +1,7 @@
 <?php
 
 
-require 'conexionbd.php';
+require '/requires/conexionbd.php';
 
 ?>
 
@@ -21,7 +21,7 @@ require 'conexionbd.php';
         <section>
             <p>Registrate en esta plataforma para que puedas ser parte del crecimiento en tu comunidad</p>
             <br>
-            <form action="vendedoresbd.php" method="post">
+            <form action="/requires/vendedoresbd.php" method="post">
                 <header>Vendedores</header>
                 <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" id="nombre">

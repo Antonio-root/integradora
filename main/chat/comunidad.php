@@ -1,6 +1,6 @@
 <?php
 // Código para obtener publicaciones
-require_once 'conexionbd.php';
+require_once '/requires/conexionbd.php';
 
 $sql = "SELECT p.contenido, p.imagen, d.nombre, d.apellido FROM publicaciones p JOIN datosvendedores d ON p.id_vendedor = d.id_vendedores ORDER BY p.fecha_publicacion DESC";
 $result = $conexion->query($sql);
@@ -17,7 +17,7 @@ $sql2 = "SELECT p.contenido, p.imagen, u.nombre, u.apellidos FROM publicaciones 
 <head>
     <meta charset="UTF-8">
     <title>Comunidad</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/estilos/styles.css">
 </head>
 <body>
     <header>

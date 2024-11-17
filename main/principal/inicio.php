@@ -5,8 +5,7 @@ if(!isset($_SESSION['loggedin'])){
     exit;
 }
 
-// Supongamos que el tipo de usuario está guardado en la sesión como 'user_type'.
-// Puedes adaptarlo según cómo tengas la información del usuario.
+
 $tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; 
 ?>
 
@@ -141,7 +140,7 @@ $tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
         <li><a href="editarnegocio.php">Mi negocio</a></li>
         <li><a href="ver_ratings.php">Ver ratings</a></li>
     <?php endif; ?>
-    <li><a href="cerrarsesion.php">Cerrar sesión</a></li>
+    <li><a href="/requires/cerrarsesion.php">Cerrar sesión</a></li>
 </ul>
 
 <main>

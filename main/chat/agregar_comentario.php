@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'conexiondb.php';
+require_once '/requires/conexiondb.php';
 
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: login.php");
+    header("Location: /requires/login.php");
     exit;
 }
 

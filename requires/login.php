@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav class="fade-in">
             <div class="nav-links">
                 <div class="left-side">
-                <img src="icon.png" alt="icon" width="176" height="54">
+                <img src="/imagenes/icon.png" alt="icon" width="176" height="54">
                 <h1>Together is better</h1>
                 </div>
             </div>

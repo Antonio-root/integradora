@@ -55,6 +55,42 @@ button{
     box-shadow: 0px 0ppx 5px rgba(15, 15, 15, 0.3);
     color: rgb(124, 216, 129);
 }
-body{
-    align-items: center;
+header {
+    background-color: #113003;
+    color: white;
+    padding: 10px 0;
+}
+
+.nav-links{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links ul {
+    list-style: none;
+    text-align: right;
+    align-items: end;
+    
+}
+.left-side{
+  display: flex;
+}
+.left-side img{
+  margin-right: 10px;
+}
+.left-side h1{
+  margin: 0;
+  font-size: 24px;
+  color: white;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    display: inline;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
 }

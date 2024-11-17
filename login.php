@@ -70,15 +70,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesion</title>
-    ><link rel="stylesheet" href="styles4.css">
+    <link rel="stylesheet" href="styles4.css">
 
 </head>
-<header>
-    <a href="index.html">
-      <img src="icon.png" alt="icono" width="176" height="44">
-    </a>
-</header>
 <body>
+<header>
+        <nav class="fade-in">
+            <div class="nav-links">
+                <div class="left-side">
+                <img src="icon.png" alt="icon" width="176" height="54">
+                <h1>Together is better</h1>
+                </div>
+            </div>
+        </nav>
+    </header>
 <div class="Login">
         <form action="login.php" method="post" ><!--anexamos etiqueta form-->
             <!--Texto o titulo-->

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombre) || empty($apellido) || empty($email) || empty($emailsecundario) || empty($telefono) || empty($password)) {
         $error = 'Todos los campos son requeridos.';
         echo $error;
-        header('Location: /main/principal/registro.html');
+        header('Location: /integradora/main/registro.html');
         exit();
     } else {
         // Hashear la contraseña
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $_SESSION['tipo'] = 'usuario';
             $_SESSION['nombre'] = $nombre;
-            header('Location: /main/principal/inicio.php');
+            header('Location: /integradora/main/inicio.php');
             $success = 'Datos guardados exitosamente.';
             echo $success;
         } else {

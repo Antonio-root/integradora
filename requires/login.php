@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['nombre'] = $nombre;
                     $_SESSION['tipo'] = 'usuario';
-            header("Location: inicio.php");
+            header("Location: /integradora/main/inicio.php");
             exit;
         }
     }
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['nombre'] = $nombre;
                     $_SESSION['tipo'] = 'vendedor';
-            header("Location: inicio.php");
+            header("Location: /integradora/main/inicio.php");
             exit;
         }
     }
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesion</title>
-    <link rel="stylesheet" href="styles4.css">
+    <link rel="stylesheet" href="/integradora/estilos/styles4.css">
 
 </head>
 <body>
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav class="fade-in">
             <div class="nav-links">
                 <div class="left-side">
-                <img src="/imagenes/icon.png" alt="icon" width="176" height="54">
+                <img src="/integradora/imagenes/icon.png" alt="icon" width="176" height="54">
                 <h1>Together is better</h1>
                 </div>
             </div>

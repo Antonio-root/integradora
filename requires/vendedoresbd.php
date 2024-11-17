@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombre) || empty($apellido) || empty($telefono) || empty($email) || empty($emailderepuesto) || empty($password)) {
         $error = "Por favor, complete todos los campos";
         echo $error;
-        header('Location:/main/principal/vendedores.php');
+        header('Location:/integradora/main/vendedores.php');
         exit;
     } else {
         // Hashear la contraseña
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $_SESSION['tipo'] = 'vendedor';
             $_SESSION['nombre'] = $nombre;
-            header('Location: /main/principal/registronegocios.php');
+            header('Location: /integradora/main/registronegocios.php');
             echo 'Los datos fueron guardados correctamente';
         } else {
             echo 'Error al guardar los datos';

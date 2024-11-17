@@ -1,7 +1,7 @@
 <?php
 
 
-require '/requires/conexionbd.php';
+require '/integradora/requires/conexionbd.php';
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
     $nombredenegocios = $_POST['nombredenegocios'];

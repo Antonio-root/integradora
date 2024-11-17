@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/estilos/styles3.css">
+    <link rel="stylesheet" href="/integradora/estilos/styles3.css">
     <title>publicación de servicio</title>
 
 </head>
 <body class="atras">
      <div class="banner"> <!--el banner es para mostrar el fondo-->
         <div class="navbar"><!--barra de navegacion-->
-            <img src="fondo.png" class="fondo">
+            <img src="/integradora/imagenes/fondo.png" class="fondo">
             <div class="Content">
                 <h1>Bienvenido de nuevo</h1>
                 <p>Gestion de emprendimiento y mejor flujo para el emergente.<br>Hecho para la comunidad<br>T´sB</p>    
@@ -40,7 +40,7 @@
 
            
                 <button type="button" ><span></span><a href="inicio.php">Inicio</a></button>
-                <button type="button" href="/requires/cerrarsesion.php"><span></span><a href="/requires/cerrarsesion.php">Cerrar Sesion</a></button>
+                <button type="button" href="/integradora/requires/cerrarsesion.php"><span></span><a href="/integradora/requires/cerrarsesion.php">Cerrar Sesion</a></button>
              </div>
                
                 

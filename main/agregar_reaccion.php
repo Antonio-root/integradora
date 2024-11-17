@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '/requires/conexionbd.php';
+require_once '/integradora/requires/conexionbd.php';
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: /requires/login.php");

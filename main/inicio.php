@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedin'])){
-    header('Location: login.php');
+    header('Location: /integradora/requires/login.php');
     exit;
 }
 
@@ -140,7 +140,7 @@ $tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
         <li><a href="editarnegocio.php">Mi negocio</a></li>
         <li><a href="ver_ratings.php">Ver ratings</a></li>
     <?php endif; ?>
-    <li><a href="/requires/cerrarsesion.php">Cerrar sesión</a></li>
+    <li><a href="/integradora/requires/cerrarsesion.php">Cerrar sesión</a></li>
 </ul>
 
 <main>

@@ -1,6 +1,6 @@
 <?php
 // Código para obtener publicaciones
-require_once '/requires/conexionbd.php';
+require_once '/integradora/requires/conexionbd.php';
 
 $sql = "SELECT p.contenido, p.imagen, d.nombre, d.apellido FROM publicaciones p JOIN datosvendedores d ON p.id_vendedor = d.id_vendedores ORDER BY p.fecha_publicacion DESC";
 $result = $conexion->query($sql);

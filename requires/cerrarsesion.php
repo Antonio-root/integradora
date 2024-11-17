@@ -2,7 +2,7 @@
 
 session_start();
 session_destroy();
-header('location:/main/principal/index.html');
+header('location:/integradora/main/index.html');
 
 
 ?>

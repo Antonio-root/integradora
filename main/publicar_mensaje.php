@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once '/requires/conexionbd.php';
+require_once '/integradora/requires/conexionbd.php';
 
 if (!isset($_SESSION['id_usuario']) && !isset($_SESSION['id_vendedor'])) {
-    header("Location: login.php");
+    header("Location: /integradora/requires/login.php");
     exit;
 }
 
@@ -12,7 +12,7 @@ $id_negocio = isset($_POST['id_negocio']) ? $_POST['id_negocio'] : null;
 $imagen = null;
 
 if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-    $imagen = '/uploads/' . basename($_FILES['imagen']['name']);
+    $imagen = '/integradora/uploads/' . basename($_FILES['imagen']['name']);
     move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen);
 }
 

@@ -84,7 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </nav>
     </header>
-<div class="Login">
+    <main>
+    <div class="Login">
         <form action="login.php" method="post" ><!--anexamos etiqueta form-->
             <!--Texto o titulo-->
             <h1>Login</h1> 
@@ -100,5 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </form> 
     </div><!--terminamos etiqueta div-->
+    </main>
 </body>
 </html>

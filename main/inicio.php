@@ -7,6 +7,8 @@ if(!isset($_SESSION['loggedin'])){
 
 
 $tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; 
+//sql para obtener los datos de la tabla datosnegocios
+
 ?>
 
 <!DOCTYPE html>

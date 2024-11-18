@@ -12,7 +12,7 @@ $id_negocio = isset($_POST['id_negocio']) ? $_POST['id_negocio'] : null;
 $imagen = null;
 
 if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-    $imagen = '/integradora/uploads/' . basename($_FILES['imagen']['name']);
+    $imagen = '/uploads/' . basename($_FILES['imagen']['name']);
     move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen);
 }
 

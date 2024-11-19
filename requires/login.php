@@ -18,15 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verificar la contraseña
         if (password_verify($password, $usuario['password'])) {
-            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            // Iniciar sesión como usuario
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['email'] = $_POST['email'];
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['tipo'] = 'usuario';
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
             session_regenerate_id();
 
-                    $_SESSION['loggedin'] = TRUE;
-                    $_SESSION['email'] = $_POST['email'];
-                    $_SESSION['nombre'] = $nombre;
-                    $_SESSION['tipo'] = 'usuario';
             header("Location: /integradora/main/inicio.php");
             exit;
         }
@@ -44,15 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verificar la contraseña
         if (password_verify($password, $vendedor['password'])) {
-            $_SESSION['id_vendedor'] = $vendedor['id_vendedores'];
+            // Iniciar sesión como vendedor
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['email'] = $_POST['email'];
             $_SESSION['nombre'] = $vendedor['nombre'];
             $_SESSION['tipo'] = 'vendedor';
+            $_SESSION['id_vendedor'] = $vendedor['id_vendedores'];
             session_regenerate_id();
 
-                    $_SESSION['loggedin'] = TRUE;
-                    $_SESSION['email'] = $_POST['email'];
-                    $_SESSION['nombre'] = $nombre;
-                    $_SESSION['tipo'] = 'vendedor';
             header("Location: /integradora/main/inicio.php");
             exit;
         }
@@ -64,43 +62,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesion</title>
+    <title>Inicio de sesión</title>
     <link rel="stylesheet" href="/integradora/estilos/styles4.css">
-
 </head>
 <body>
 <header>
-        <nav class="fade-in">
-            <div class="nav-links">
-                <div class="left-side">
+    <nav class="fade-in">
+        <div class="nav-links">
+            <div class="left-side">
                 <img src="/integradora/imagenes/icon.png" alt="icon" width="176" height="54">
                 <h1>Together is better</h1>
-                </div>
             </div>
-        </nav>
-    </header>
-    <main>
-    <div class="Login">
-        <form action="login.php" method="post" ><!--anexamos etiqueta form-->
-            <!--Texto o titulo-->
-            <h1>Login</h1> 
-            <!--etiqueta que guardara el usuario-->
-            <label>Email</label>
-            <input type="email" name="email">
-           <!--etiqueta que guardara la contraseña-->
-            <label>Password</label>
-            <input type="password" name="password">
-           <!--etiqueta para hacer el boton-->
-           
-            <button>Login</button>
+        </div>
+    </nav>
+</header>
 
+<main>
+    <div class="Login">
+        <form action="login.php" method="post">
+            <h1>Login</h1> 
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+
+            <button type="submit">Login</button>
         </form> 
-    </div><!--terminamos etiqueta div-->
-    </main>
+
+        <?php if (isset($error)): ?>
+            <div class="error"><?php echo $error; ?></div>
+        <?php endif; ?>
+    </div>
+</main>
+
 </body>
 </html>

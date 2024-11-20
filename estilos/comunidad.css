@@ -1,0 +1,277 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+a{
+    text-decoration: none
+}
+button{
+    text-decoration: none;
+}
+/* Estilos del cuerpo y la pantalla */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Asegura que no esté centrado verticalmente */
+    min-height: 100vh;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #6c63ff;
+}
+
+/* Contenedor principal */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-start; /* Ajusta la distribución a la izquierda */
+    gap: 20px;
+    padding: 0;
+}
+
+/* Sección Left */
+aside.left {
+    width: 25%; /* Establece el ancho de la columna izquierda */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content; /* Asegura que no se estire demasiado */
+    position: sticky; /* Si lo deseas que se quede pegado al hacer scroll */
+    top: 20px; /* Mantén la sección visible durante el scroll */
+}
+
+.news-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección Central - Publicaciones */
+.publicaciones {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Artículo de publicación */
+article {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+article:hover {
+    transform: translateY(-5px);
+}
+
+article h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+article p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+article img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Reacciones */
+.reacciones {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.reaction-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.reaction-button:hover {
+    background-color: #ddd;
+}
+
+/* Botón de comentarios */
+.comentarios {
+    margin-top: 10px;
+}
+
+.comentarios button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.comentarios button:hover {
+    background-color: #5851db;
+}
+
+/* Sección Right (perfil) */
+aside.right {
+    width: 20%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.perfil {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.perfil img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.perfil p {
+    font-size: 1.2rem;
+    color: #6c63ff;
+}
+
+button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5851db;
+}
+
+ /* Estilo para la animación de los comentarios */
+ @keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comentarios-list {
+    display: none;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.comentarios-list.show {
+    display: block;
+}
+
+.form-comentario {
+    display: none;
+    margin-top: 10px;
+}
+
+.form-comentario.show {
+    display: block;
+}
+
+/* Estilos para los botones de reacción */
+.reaction-button {
+    margin-right: 10px;
+}
+
+.reaction-button.selected {
+    background-color: #4CAF50; /* Color verde para la reacción seleccionada */
+    color: white;
+}
+
+.reaction-button:hover {
+    background-color: #45a049; /* Hover verde */
+}
+
+/* Estilos para cada comentario */
+.comentarios-list .comentario {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    aside.left, aside.right, main {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .publicaciones {
+        align-items: center;
+    }
+
+    aside.left {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    aside.right {
+        width: 100%;
+        margin-top: 20px;
+    }
+}

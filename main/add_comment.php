@@ -1,8 +1,9 @@
 <?php
+session_start();
 require_once '../requires/conexionbd.php';
 
-$data = json_decode(file_get_contents("php://input"), true);
-
+// Obtener datos del cuerpo de la solicitud
+$data = json_decode(file_get_contents('php://input'), true);
 $postId = $data['postId'];
 $userId = $data['userId'];
 $comentario = $data['comentario'];
@@ -15,6 +16,9 @@ $stmt->bind_param('iis', $postId, $userId, $comentario);
 if ($stmt->execute()) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false]);
+    echo json_encode(['success' => false, 'message' => 'Error al agregar comentario']);
 }
+
+$stmt->close();
+$conexion->close();
 ?>

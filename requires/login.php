@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Verificar en la tabla de usuarios
-    $sql_usuario = "SELECT id_usuario, nombre, password FROM datosusuarios WHERE email = ?";
+    $sql_usuario = "SELECT id_usuario, nombre, apellido, password FROM datosusuarios WHERE email = ?";
     $stmt_usuario = $conexion->prepare($sql_usuario);
     $stmt_usuario->bind_param("s", $email);
     $stmt_usuario->execute();
@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['tipo'] = 'usuario';
             $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['apellido'] = $usuario['apellido'];
             session_regenerate_id();
 
             header("Location: /integradora/main/inicio.php");
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Verificar en la tabla de vendedores si no se encontró en usuarios
-    $sql_vendedor = "SELECT id_vendedores, nombre, password FROM datosvendedores WHERE email = ?";
+    $sql_vendedor = "SELECT id_vendedores, nombre, apellido, password FROM datosvendedores WHERE email = ?";
     $stmt_vendedor = $conexion->prepare($sql_vendedor);
     $stmt_vendedor->bind_param("s", $email);
     $stmt_vendedor->execute();
@@ -48,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['nombre'] = $vendedor['nombre'];
             $_SESSION['tipo'] = 'vendedor';
-            $_SESSION['id_vendedor'] = $vendedor['id_vendedores'];
+            $_SESSION['id_usuario'] = $vendedor['id_vendedores'];
+            $_SESSION['apellido'] = $vendedor['apellido'];
             session_regenerate_id();
 
             header("Location: /integradora/main/inicio.php");
@@ -67,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="/integradora/estilos/styles4.css">
+    <link rel="stylesheet" href="/integradora/estilos/login2.css">
 </head>
 <body>
 <header>

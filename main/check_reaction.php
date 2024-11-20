@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: /integradora/requires/login.php');
+    exit;
+}
+
+
+$tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
 require_once '../requires/conexionbd.php';
 
 $data = json_decode(file_get_contents("php://input"), true);

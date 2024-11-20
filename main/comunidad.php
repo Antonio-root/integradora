@@ -1,14 +1,26 @@
 <?php
+session_start();
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: /integradora/requires/login.php');
+    exit;
+}
+
+$tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
+
+// Definir el ID del usuario desde la sesión
+$userId = $_SESSION['id_usuario']; // Asegúrate de que este es el nombre correcto de la variable de sesión para el ID del usuario
+
 // Conectar a la base de datos
 require_once '../requires/conexionbd.php';
 
-// Consulta para obtener las publicaciones
+// Consulta para obtener todas las publicaciones, sin filtrar por usuario o vendedor
 $sql = "SELECT p.id_publicacion, p.contenido, p.imagen, d.nombre, d.apellido, p.id_vendedor,
             (SELECT COUNT(*) FROM reacciones r WHERE r.id_publicacion = p.id_publicacion) AS total_reacciones,
             (SELECT COUNT(*) FROM comentarios c WHERE c.id_publicacion = p.id_publicacion) AS total_comentarios
         FROM publicaciones p
-        JOIN datosvendedores d ON p.id_vendedor = d.id_vendedores
-        ORDER BY p.fecha_publicacion DESC";
+        LEFT JOIN datosvendedores d ON p.id_vendedor = d.id_vendedores
+        LEFT JOIN datosusuarios u ON p.id_usuario = u.id_usuario
+        ORDER BY p.fecha_publicacion DESC";  // Muestra todas las publicaciones, sin filtrar por tipo
 $result = $conexion->query($sql);
 
 if (!$result) {
@@ -22,195 +34,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <title>Comunidad</title>
-    <style>
-        /* Reset básico */
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        /* Estilos del cuerpo y la pantalla */
-        body {
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: #6c63ff;
-        }
-
-        aside {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .perfil {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .perfil img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .perfil p {
-            font-size: 1.2rem;
-            color: #6c63ff;
-        }
-
-        button {
-            background-color: #6c63ff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #5851db;
-        }
-
-        main {
-            width: 100%;
-            max-width: 1200px;
-            margin: 20px auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 40px; /* Espacio entre las secciones dentro de main */
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .publicaciones {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex: 1;
-        }
-
-        article {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        article:hover {
-            transform: translateY(-5px);
-        }
-
-        article h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        article p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #555;
-        }
-
-        article img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        .reacciones {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .reaction-button {
-            background-color: #f0f0f0;
-            color: #333;
-            border: 1px solid #ccc;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .reaction-button:hover {
-            background-color: #ddd;
-        }
-
-        .comentarios {
-            margin-top: 10px;
-        }
-
-        .comentarios button {
-            background-color: #6c63ff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .comentarios button:hover {
-            background-color: #5851db;
-        }
-
-        /* Perfil a la derecha */
-        aside.right {
-            width: 20%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            aside.left, aside.right, main {
-                width: 100%;
-                margin: 10px 0;
-            }
-
-            .publicaciones {
-                align-items: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/integradora/estilos/comunidad.css">
 </head>
 <body>
     <header>
@@ -218,6 +42,18 @@ if (!$result) {
     </header>
 
     <main>
+        <aside class="left">
+            <div class="news">
+                <h2>Noticias</h2>
+                <div class="news-item">
+                    <h3>Noticia 1</h3>
+                    <p>Descripción de la noticia 1</p>
+                    <p>Fecha de la noticia 1</p>
+                    <p>Autor de la noticia 1</p>
+                </div>
+            </div>
+        </aside>
+
         <!-- Sección de publicaciones -->
         <section class="publicaciones">
             <?php while ($row = $result->fetch_assoc()) : ?>
@@ -247,7 +83,10 @@ if (!$result) {
 
                     <!-- Botón de comentarios -->
                     <div class="comentarios">
-                        <button class="comment-button">💬 Comentarios</button>
+                        <button class="comment-button">💬 Agregar comentario</button>
+                        <button class="ver-comment" data-post-id="<?php echo $row['id_publicacion']; ?>">Ver comentarios</button>
+                        <div class="comentarios-list"></div> <!-- Contenedor para comentarios cargados -->
+                        <div class="form-comentario" style="display: none;"></div> <!-- Formulario de comentarios oculto por defecto -->
                     </div>
                 </article>
             <?php endwhile; ?>
@@ -256,84 +95,168 @@ if (!$result) {
         <!-- Perfil del usuario -->
         <aside class="right">
             <div class="perfil">
-                <?php if ($is_vendor): ?>
+                <?php if ($tipo == 'vendedor'): ?>
                     <!-- Mostrar datos del vendedor -->
                     <img src="/integradora/imagenes/vendedor_perfil.jpg" alt="Foto de perfil">
-                    <p><?php echo htmlspecialchars($nombre_vendedor . " " . $apellido_vendedor); ?></p>
+                    <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
                 <?php else: ?>
                     <!-- Mostrar datos del usuario -->
                     <img src="/integradora/imagenes/usuario_perfil.jpg" alt="Foto de perfil">
-                    <p><?php echo htmlspecialchars($nombre_usuario . " " . $apellido_usuario); ?></p>
+                    <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
                 <?php endif; ?>
+                <button><a href="perfil.php">Mi perfil</a></button>
+                <button><a href="publicacion.html">Hacer una publicacion</a></button>
+                <button><a href="inicio.php">Inicio</a></button>
+                <button><a href="/integradora/requires/cerrarsesion.php">Cerrar sesión</a></button>
             </div>
-            <button>Categorías</button>
-            <button>Comida</button>
-            <button>Papelería</button>
         </aside>
-
+                
     </main>
 
-    <!-- Cerrar sesión -->
-    <button><a href="/integradora/requires/cerrarsesion.php">Cerrar sesión</a></button>
-
     <script>
-        // Funcionalidad para manejar reacciones
-        document.querySelectorAll('.reaction-button').forEach((button) => {
-            button.addEventListener('click', function() {
-                const reaction = this.getAttribute('data-reaction');
-                const postId = this.closest('article').getAttribute('data-post-id');
-                const userId = <?php echo $userId; ?>;
-
-                fetch('check_reaction.php', {
-                    method: 'POST',
-                    body: JSON.stringify({ postId, userId }),
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.reacted) {
-                        alert('Ya has reaccionado a esta publicación');
-                    } else {
-                        fetch('add_reaction.php', {
-                            method: 'POST',
-                            body: JSON.stringify({ postId, userId, reaction }),
-                            headers: { 'Content-Type': 'application/json' }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Reacción registrada:', data);
-                        });
-                    }
-                });
-            });
-        });
-
-        // Funcionalidad para manejar comentarios
-        document.querySelectorAll('.comment-button').forEach((button) => {
-            button.addEventListener('click', function() {
-                const postId = this.closest('article').getAttribute('data-post-id');
-                
-                const form = document.createElement('form');
-                form.innerHTML = `
-                    <textarea name="comentario" placeholder="Escribe tu comentario..." rows="4" cols="50"></textarea><br>
-                    <button type="submit">Enviar comentario</button>
-                `;
-                this.parentElement.appendChild(form);
-
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const comentario = form.querySelector('textarea').value;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidad para manejar reacciones
+            document.querySelectorAll('.reaction-button').forEach((button) => {
+                button.addEventListener('click', function() {
+                    const reaction = this.getAttribute('data-reaction');
+                    const postId = this.closest('article').getAttribute('data-post-id');
                     const userId = <?php echo $userId; ?>;
 
-                    fetch('add_comment.php', {
+                    // Desmarcar otras reacciones si ya están seleccionadas
+                    document.querySelectorAll('.reaction-button').forEach((btn) => {
+                        btn.classList.remove('selected');
+                    });
+
+                    // Marcar la reacción seleccionada
+                    this.classList.add('selected');
+
+                    // Asegurarse de que el usuario no acumule reacciones
+                    fetch('check_reaction.php', {
                         method: 'POST',
-                        body: JSON.stringify({ postId, userId, comentario }),
+                        body: JSON.stringify({ postId, userId }),
                         headers: { 'Content-Type': 'application/json' }
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Comentario registrado:', data);
+                        if (data.reacted) {
+                            // Si ya ha reaccionado, actualizar la reacción
+                            fetch('update_reaction.php', {
+                                method: 'POST',
+                                body: JSON.stringify({ postId, userId, reaction }),
+                                headers: { 'Content-Type': 'application/json' }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Reacción actualizada:', data);
+                                updateReactionCount(postId);
+                            });
+                        } else {
+                            // Si no ha reaccionado, agregar nueva reacción
+                            fetch('add_reaction.php', {
+                                method: 'POST',
+                                body: JSON.stringify({ postId, userId, reaction }),
+                                headers: { 'Content-Type': 'application/json' }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Reacción agregada:', data);
+                                updateReactionCount(postId);
+                            });
+                        }
+                    })
+                    .catch(err => console.error('Error en la solicitud de reacción:', err));
+                });
+            });
+
+            // Función para actualizar el contador de reacciones
+            function updateReactionCount(postId) {
+                fetch('get_reaction_count.php', {
+                    method: 'POST',
+                    body: JSON.stringify({ postId }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const reactionCountElement = document.querySelector(`article[data-post-id="${postId}"] .total_reacciones`);
+                    reactionCountElement.textContent = `${data.total_reacciones} Reacciones`;
+                })
+                .catch(err => console.error('Error al obtener el conteo de reacciones:', err));
+            }
+
+            // Mostrar el formulario para agregar comentario
+            document.querySelectorAll('.comment-button').forEach((button) => {
+                button.addEventListener('click', function() {
+                    const postId = this.closest('article').getAttribute('data-post-id');
+                    const formContainer = this.closest('article').querySelector('.form-comentario');
+
+                    // Mostrar el formulario
+                    formContainer.style.display = 'block';
+
+                    // Agregar el evento para enviar el comentario
+                    formContainer.innerHTML = `
+                        <textarea id="comentario-texto" placeholder="Escribe tu comentario..."></textarea>
+                        <button class="submit-comment">Enviar</button>
+                    `;
+
+                    const submitButton = formContainer.querySelector('.submit-comment');
+                    submitButton.addEventListener('click', function() {
+                        const comentarioTexto = formContainer.querySelector('#comentario-texto').value;
+                        const userId = <?php echo $userId; ?>;  // Usar la variable de sesión de PHP para el ID de usuario
+
+                        if (comentarioTexto.trim() !== '') {
+                            fetch('add_comment.php', {
+                                method: 'POST',
+                                body: JSON.stringify({ postId, userId, comentario: comentarioTexto }),
+                                headers: { 'Content-Type': 'application/json' }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Comentario agregado con éxito');
+                                    formContainer.style.display = 'none';  // Ocultar el formulario después de agregar el comentario
+                                    // También puedes actualizar la lista de comentarios si es necesario
+                                } else {
+                                    alert('Hubo un error al agregar el comentario');
+                                }
+                            })
+                            .catch(err => console.error('Error al agregar comentario:', err));
+                        } else {
+                            alert('Por favor, escribe un comentario.');
+                        }
                     });
+                });
+            });
+
+            // Mostrar comentarios al hacer clic en "Ver comentarios"
+            document.querySelectorAll('.ver-comment').forEach((button) => {
+                button.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-post-id');
+
+                    // Hacer una solicitud para obtener los comentarios
+                    fetch('get_comments.php', {
+                        method: 'POST',
+                        body: JSON.stringify({ postId }),
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const commentList = this.closest('article').querySelector('.comentarios-list');
+                        commentList.innerHTML = ''; // Limpiar comentarios existentes
+
+                        if (data.success && data.comentarios.length > 0) {
+                            data.comentarios.forEach(comment => {
+                                const commentElement = document.createElement('div');
+                                commentElement.classList.add('comentario-item');
+                                commentElement.innerHTML = `<strong>${comment.nombre} ${comment.apellido}</strong>: ${comment.comentario}`;
+                                commentList.appendChild(commentElement);
+                            });
+                        } else {
+                            const messageElement = document.createElement('p');
+                            messageElement.textContent = data.message || 'No hay comentarios aún.';
+                            commentList.appendChild(messageElement);
+                        }
+                    })
+                    .catch(err => console.error('Error al cargar comentarios:', err));
                 });
             });
         });

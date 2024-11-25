@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $_SESSION['tipo'] = 'vendedor';
             $_SESSION['nombre'] = $nombre;
+            $_SESSION['loggedin'];
             header('Location: /integradora/main/registronegocios.php');
             echo 'Los datos fueron guardados correctamente';
         } else {

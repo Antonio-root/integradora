@@ -13,6 +13,7 @@ $sql = "SELECT
             dn.ubicacion,
             dn.horarios,
             dn.contacto,
+            dn.tipo,
             dn.descripcion,
             CONCAT(dv.nombre, ' ', dv.apellido) AS nombre_vendedor
         FROM datosnegocios dn

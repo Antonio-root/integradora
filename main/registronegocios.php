@@ -1,18 +1,22 @@
 <?php
 session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: /integradora/requires/login.php');
+    exit;
+}
 
 require '../requires/conexionbd.php';
 
-
+$id_vendedor = $_SESSION['id_usuario'];
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
-    $nombredenegocios = $_POST['nombredenegocios'];
+    $nombredenegocio = $_POST['nombredenegocio'];
     $ubicacion = $_POST['ubicacion'];
     $horarios  = $_POST['horarios'];
     $contacto = $_POST['contacto'];
     $tipo = $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
-    $id_vendedor = $_SESSION['id_usuario'];
+    
 
     try {
         $pdo = new PDO("mysql:host=$DATABASE_HOST;dbname=$DATABASE_NAME", $DATABASE_USER,  $DATABASE_PASS);
@@ -23,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     }
 
     //se validan los datos de entrada
-    if(empty($nombredenegocios) ||  empty($ubicacion) || empty($horarios) || empty($contacto) || empty($tipo) || empty($descripcion)){
+    if(empty($nombredenegocio) ||  empty($ubicacion) || empty($horarios) || empty($contacto) || empty($tipo) || empty($descripcion)){
         header('Location:registronegocios.php');
         $error = "Por favor llenar todos los campos";
         echo $error;
@@ -32,14 +36,15 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     } else{
 
         //se insertan los datos  en la base de datos
-        $stmt = $pdo->prepare("INSERT INTO datosnegocios(id_vendedor, nombredenegocio, ubicacion, horarios, contacto, tipo, descripcion) VALUES (:id_vendedor,:nombredenegocios, :ubicacion, :horarios, :contacto, :tipo, :descripcion)");
-        $stmt->bindParam(':nombredenegocios', $nombredenegocios);
+        $stmt = $pdo->prepare("INSERT INTO datosnegocios(id_vendedor, nombredenegocio, ubicacion, horarios, contacto, tipo, descripcion) VALUES (:id_vendedor,:nombredenegocio, :ubicacion, :horarios, :contacto, :tipo, :descripcion)");
+        $stmt->bindParam(':id_vendedor', $id_vendedor);
+        $stmt->bindParam(':nombredenegocio', $nombredenegocio);
         $stmt->bindParam(':ubicacion', $ubicacion);
         $stmt->bindParam(':horarios', $horarios);
         $stmt->bindParam(':contacto', $contacto);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':id_vendedor', $id_vendedor);
+        
         
         if ($stmt->execute()){
             header('Location:editarnegocio.php');

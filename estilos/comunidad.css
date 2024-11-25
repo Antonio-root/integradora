@@ -208,8 +208,10 @@ button:hover {
 .comentarios-list {
     display: none;
     margin-top: 20px;
-    padding-top: 10px;
+    padding: 15px;
     border-top: 1px solid #ddd;
+    background-color: #f8f9fa;
+    border-radius: 8px;
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
@@ -219,7 +221,33 @@ button:hover {
 
 .form-comentario {
     display: none;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.form-comentario textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.form-comentario .submit-comment {
+    background-color: #6c63ff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-comentario .submit-comment:hover {
+    background-color: #5851db;
 }
 
 .form-comentario.show {

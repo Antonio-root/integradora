@@ -3,50 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/integradora/estilos/editarnegocio.css">
-    <title>publicación de servicio</title>
-
-</head>
-<body class="atras">
-     <div class="banner"> <!--el banner es para mostrar el fondo-->
-        <div class="navbar"><!--barra de navegacion-->
-            <img src="/integradora/imagenes/fondo.png" class="fondo">
-            <div class="Content">
-                <h1>Bienvenido de nuevo</h1>
-                <p>Gestion de emprendimiento y mejor flujo para el emergente.<br>Hecho para la comunidad<br>T´sB</p>    
-             <div>
-                          
-                    <a href="#" >
-                <span>Agregar imagen</span>
-                <div class="liquid"> </div>   
-                     </a> 
-                <a href="#">
-                <span>Hacer publicación</span>
-                <div class="liquid"> </div>   
-                </a> 
-                <a href="#">
-                <span>Hacer Promocion</span>
-                <div class="liquid"> </div>   
-                </a> 
-                <a href="#">
-                <span>Mensajes</span>
-                <div class="liquid"> </div>   
-            </a>  
-               <a href="#">
-                <span>Editar Info</span>
-                <div class="liquid"> </div>   
-            </a>   
-        </ul>
-
-           
-                <button type="button" ><span></span><a href="inicio.php">Inicio</a></button>
-                <button type="button" href="/integradora/requires/cerrarsesion.php"><span></span><a href="/integradora/requires/cerrarsesion.php">Cerrar Sesion</a></button>
-             </div>
-               
-                
-
-             
+    <link rel="stylesheet" href="/integradora/estilos/editarnegocios.css">
+    <title>Editar Perfil</title>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="/integradora/imagenes/icon.png" alt="Foto del usuario" class="user-photo">
         </div>
+        <div class="nav-right">
+            <button><a href="inicio.php">Inicio</a></button>
+            <button><a href="/integradora/requires/cerrarsesion.php">Cerrar Sesión</a></button>
         </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <main class="main-content">
+        <section class="welcome">
+            <img src="/integradora/imagenes/foto_usuario.png" alt="Foto del usuario" class="user-avatar">
+            <h1>Bienvenido, [Nombre del Usuario]</h1>
+            <p>Gestiona tu perfil y configuraciones para personalizar tu experiencia.</p>
+        </section>
+
+        <!-- Tarjetas de acciones -->
+        <section class="action-cards">
+            <div class="card">
+                <h3>Agregar imagen</h3>
+                <p>Sube una nueva imagen para tu negocio o perfil.</p>
+                <a href="#">Subir imagen</a>
+            </div>
+            <div class="card">
+                <h3>Hacer publicación</h3>
+                <p>Crea contenido para destacar tu negocio.</p>
+                <a href="publicacion.php">Crear publicación</a>
+            </div>
+            <div class="card">
+                <h3>Hacer promoción</h3>
+                <p>Promociona tus servicios para llegar a más clientes.</p>
+                <a href="#">Ver promociones</a>
+            </div>
+            <div class="card">
+                <h3>Mensajes</h3>
+                <p>Gestiona tus mensajes con clientes y seguidores.</p>
+                <a href="#">Abrir mensajes</a>
+            </div>
+            <div class="card">
+                <h3>Editar Info</h3>
+                <p>Actualiza la información de tu negocio o perfil.</p>
+                <a href="#">Editar perfil</a>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

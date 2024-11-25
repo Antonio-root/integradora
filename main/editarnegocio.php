@@ -1,3 +1,19 @@
+<?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: /integradora/requires/login.php');
+    exit;
+}
+
+
+$tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; 
+//sql para obtener el nombre de usuario
+$nombre = $_SESSION['nombre'];
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +37,7 @@
     <main class="main-content">
         <section class="welcome">
             <img src="/integradora/imagenes/foto_usuario.png" alt="Foto del usuario" class="user-avatar">
-            <h1>Bienvenido, [Nombre del Usuario]</h1>
+            <h1>Bienvenido, <?php echo $nombre ?></h1>
             <p>Gestiona tu perfil y configuraciones para personalizar tu experiencia.</p>
         </section>
 
@@ -50,7 +66,7 @@
             <div class="card">
                 <h3>Editar Info</h3>
                 <p>Actualiza la información de tu negocio o perfil.</p>
-                <a href="#">Editar perfil</a>
+                <a href="registronegocios.php">Editar perfil</a>
             </div>
         </section>
     </main>

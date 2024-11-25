@@ -18,7 +18,7 @@ $sql = "SELECT p.id_publicacion, p.contenido, p.imagen, d.nombre, d.apellido, p.
             (SELECT COUNT(*) FROM reacciones r WHERE r.id_publicacion = p.id_publicacion) AS total_reacciones,
             (SELECT COUNT(*) FROM comentarios c WHERE c.id_publicacion = p.id_publicacion) AS total_comentarios
         FROM publicaciones p
-        LEFT JOIN datosvendedores d ON p.id_vendedor = d.id_vendedores
+        LEFT JOIN datosvendedores d ON p.id_vendedor = d.id_vendedor
         LEFT JOIN datosusuarios u ON p.id_usuario = u.id_usuario
         ORDER BY p.fecha_publicacion DESC";  // Muestra todas las publicaciones, sin filtrar por tipo
 $result = $conexion->query($sql);
@@ -105,7 +105,7 @@ if (!$result) {
                     <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
                 <?php endif; ?>
                 <button><a href="perfil.php">Mi perfil</a></button>
-                <button><a href="publicacion.html">Hacer una publicacion</a></button>
+                <button><a href="publicacion.php">Hacer una publicacion</a></button>
                 <button><a href="inicio.php">Inicio</a></button>
                 <button><a href="/integradora/requires/cerrarsesion.php">Cerrar sesión</a></button>
             </div>

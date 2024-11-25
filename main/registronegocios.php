@@ -1,7 +1,9 @@
 <?php
-
+session_start();
 
 require '../requires/conexionbd.php';
+
+
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
     $nombredenegocios = $_POST['nombredenegocios'];
@@ -10,6 +12,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     $contacto = $_POST['contacto'];
     $tipo = $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
+    $id_vendedor = $_SESSION['id_usuario'];
 
     try {
         $pdo = new PDO("mysql:host=$DATABASE_HOST;dbname=$DATABASE_NAME", $DATABASE_USER,  $DATABASE_PASS);
@@ -29,13 +32,14 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     } else{
 
         //se insertan los datos  en la base de datos
-        $stmt = $pdo->prepare("INSERT INTO datosnegocios(nombredenegocios, ubicacion, horarios, contacto, tipo, descripcion) VALUES (:nombredenegocios, :ubicacion, :horarios, :contacto, :tipo, :descripcion)");
+        $stmt = $pdo->prepare("INSERT INTO datosnegocios(id_vendedor, nombredenegocio, ubicacion, horarios, contacto, tipo, descripcion) VALUES (:id_vendedor,:nombredenegocios, :ubicacion, :horarios, :contacto, :tipo, :descripcion)");
         $stmt->bindParam(':nombredenegocios', $nombredenegocios);
         $stmt->bindParam(':ubicacion', $ubicacion);
         $stmt->bindParam(':horarios', $horarios);
         $stmt->bindParam(':contacto', $contacto);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':id_vendedor', $id_vendedor);
         
         if ($stmt->execute()){
             header('Location:editarnegocio.php');
@@ -184,8 +188,8 @@ form button:hover {
     </header>
     <form action="registronegocios.php" method="post">
         <header>Registra tu negocio</header>
-        <label for="nombredenegocios">Nombre de tu negocio</label>
-        <input type="text" name="nombredenegocios" placeholder="Nombre del negocio">
+        <label for="nombredenegocio">Nombre de tu negocio</label>
+        <input type="text" name="nombredenegocio" placeholder="Nombre del negocio">
         <br>
         <label for="ubicacion">Ubicacion de tu negocio</label>
         <input type="text" name="ubicacion" placeholder="Ubicacion del negocio">

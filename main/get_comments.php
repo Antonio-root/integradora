@@ -16,7 +16,7 @@ if ($isVendedor) {
     $sql = "SELECT c.comentario, u.nombre, u.apellido, c.fecha_comentario 
             FROM comentarios c
             JOIN datosusuarios u ON c.id_usuario = u.id_usuario
-            LEFT JOIN datosvendedores v ON c.id_vendedor = v.id_vendedores
+            LEFT JOIN datosvendedores v ON c.id_vendedor = v.id_vendedor
             WHERE c.id_publicacion = ? 
             ORDER BY c.fecha_comentario DESC";
 } else {

@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Verificar en la tabla de vendedores si no se encontró en usuarios
-    $sql_vendedor = "SELECT id_vendedores, nombre, apellido, password FROM datosvendedores WHERE email = ?";
+    $sql_vendedor = "SELECT id_vendedor, nombre, apellido, password FROM datosvendedores WHERE email = ?";
     $stmt_vendedor = $conexion->prepare($sql_vendedor);
     $stmt_vendedor->bind_param("s", $email);
     $stmt_vendedor->execute();
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['nombre'] = $vendedor['nombre'];
             $_SESSION['tipo'] = 'vendedor';
-            $_SESSION['id_usuario'] = $vendedor['id_vendedores'];
+            $_SESSION['id_usuario'] = $vendedor['id_vendedor'];
             $_SESSION['apellido'] = $vendedor['apellido'];
             session_regenerate_id();
 

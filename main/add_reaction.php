@@ -17,7 +17,7 @@ $reaction = $data['reaction'];
 
 // Determinar si el usuario es un vendedor o usuario
 $sql_user = "SELECT id_usuario FROM datosusuarios WHERE id_usuario = ?";
-$sql_vendor = "SELECT id_vendedores FROM datosvendedores WHERE id_vendedores = ?";
+$sql_vendor = "SELECT id_vendedor FROM datosvendedores WHERE id_vendedor = ?";
 
 $stmt_user = $conexion->prepare($sql_user);
 $stmt_user->bind_param('i', $userId);

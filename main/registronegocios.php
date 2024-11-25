@@ -53,11 +53,134 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Negocios</title>
+    <style>
+        /* Estilo General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "yatra-one-regular", sans-serif;
+    font-size: 18px;
+    background: url(Negoci2.jpg) no-repeat center center fixed;
+    background-size: cover;
+    color: #114607;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+main {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.8); /* Fondo translúcido */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Encabezado principal */
+header h1 {
+    text-align: center;
+    color: #04be3c;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Estilo del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre elementos */
+}
+
+form header {
+    font-size: 1.5rem;
+    color: #269b43;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Etiquetas y campos */
+form label {
+    font-size: 1rem;
+    color: #114607;
+    font-weight: bold;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: #aaa;
+}
+
+form textarea {
+    height: 80px; /* Altura específica para el campo de texto */
+    resize: none; /* Desactiva el redimensionado manual */
+}
+
+/* Botón */
+form button {
+    background-color: #04be3c;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #039b33; /* Más oscuro al pasar el mouse */
+}
+
+/* Estilo responsivo */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    form button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    form header {
+        font-size: 1.2rem;
+    }
+
+    form input,
+    form textarea {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
 </head>
 <body>
     <main>
     <header>
-        <h1>Aqui va el registro de negocios</h1>
+        <h1>Ahora que eres vendedor puedes registrar tu negocio</h1>
     </header>
     <form action="registronegocios.php" method="post">
         <header>Registra tu negocio</header>

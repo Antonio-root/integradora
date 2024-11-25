@@ -6,40 +6,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendedores</title>
+    <link rel="stylesheet" href="/integradora/estilos/vendedores.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    color: #114607;
+    font-family: "yatra-one-regular", system-ui;
+    font-size: 20px; /* tamaño de letra dentro de la forma */
+    width: 100%;
+    height: 100vh;
+    background: url(Negoci2.jpg);
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 330px;
+    height: 110vh;
+    background: linear-gradient(#ffffff34, #ffffff27);
+    backdrop-filter: blur(7px);
+    border: 4px solid #ffffff83;
+    border-radius: 20px;
+    box-shadow: 0px 8px 32px #0000008a;
+
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en una columna */
+    justify-content: center;
+    align-items: center;
+}
+
+form header { /* Texto de vendedores */
+    margin-bottom: 15px;
+    position: relative;
+    color: rgb(24, 22, 22);
+    text-align: center;
+}
+
+form label {
+    display: flex;
+    flex-direction: column; /* Alinea el texto y los inputs verticalmente */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin-bottom: 15px;
+    color: #000000;
+    font-weight: bold;
+}
+
+form label input {
+    margin-top: 10px;
+    width: 100%; /* Adapta el ancho del input */
+    height: 40px;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #ffffffac;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+input::placeholder {
+    color: #ffffffb9;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+}
+
+button {
+    outline: none;
+    border: none;
+    font-size: 0.8rem;
+    padding: 10px 50px;
+    border-radius: 30px;
+    margin: 15px 0px;
+    cursor: pointer;
+    background-color: #04be3c; /* Botón verde */
+    color: white;
+}
+
+button:hover {
+    background-color: #039b33; /* Más oscuro al pasar el mouse */
+}
+
+header { /* Encabezado del formulario */
+    font-size: 20px;
+    font-weight: bold;
+    color: #04be3c;
+    
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+section {
+    height: 60dvh;
+}
+.encabezado{
+    background: linear-gradient(#ffffff34, #ffffff27);
+    backdrop-filter: blur(7px);
+    border: 50px;
+    border-color: #039b33;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+    </style>
 </head>
 <body>
     <main>
-        <header>
+        <header class="encabezado">
             <h1>BIENVENIDO A TOGETHER IS BETTER</h1>
             <h2>Forma parte del crecimiento</h2>  
-        </header>
-        <section>
             <p>Registrate en esta plataforma para que puedas ser parte del crecimiento en tu comunidad</p>
-            <br>
+        </header>
+        <br>
+        <br>
+        <section>
+            <div class="center">
             <form action="/integradora/requires/vendedoresbd.php" method="post">
                 <header>Vendedores</header>
-                <label for="nombre">Nombre</label>
+                <label class="txt" for="nombre">Nombre
                 <input type="text" name="nombre" id="nombre">
+                </label>
 
-                <label for="apellido">Apellidos</label>
+                <label class="txt" for="apellido">Apellidos
                 <input type="text" name="apellido" id="apellido">
-
-                <label for="telefono">Telefono</label>
+                </label>   
+                
+                <label class="txt" for="telefono">Telefono
                 <input type="number" name="telefono" id="telefono">
+                </label>
 
-                <label for="email">Email</label>
+                <label class="txt" for="email">Email 
+                <br>
                 <input type="email" name="email" id="email">
+                </label>
 
-                <label for="emailderepuesto">Email secundario</label>
+                <label class="txt" for="emailderepuesto">Email secundario
                 <input type="email" name="emailderepuesto" id="emailrespuesto">
-                <br>
-                <label for="password">Contraseña</label>
+                </label>
+
+                
+                <label class="txt" for="password">Contraseña 
                 <input type="password" name="password" id="password">
-                <br>
+                </label>
+                
 
                 <button type="submit">Enviar</button>
 
             </form>
+            </div>
         </section>
     </main>
 </body>

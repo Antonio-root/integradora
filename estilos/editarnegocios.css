@@ -1,0 +1,153 @@
+/* Reset y configuraciones generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #04be3c; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto claro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Barra de navegación */
+.navbar {
+    width: 100%;
+    background-color: chartreuse;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    height: 100px; /* Altura fija */
+}
+
+.navbar .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.navbar .nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar button {
+    background-color: #303030; /* Fondo oscuro para botones */
+    color: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+
+.navbar button:hover {
+    background-color: #424242;
+    transform: scale(1.05);
+}
+
+.navbar button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Contenedor principal */
+.main-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    margin-top: 100px; /* Margen superior dinámico */
+    text-align: center;
+}
+
+.welcome {
+    margin-bottom: 40px;
+}
+
+.welcome .user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.welcome h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    font-size: 1rem;
+    color: #bdbdbd;
+}
+
+/* Tarjetas de acciones */
+.action-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.action-cards .card {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.action-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+}
+
+.action-cards .card h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.action-cards .card p {
+    font-size: 0.9rem;
+    color: #bdbdbd;
+    margin-bottom: 15px;
+}
+
+.action-cards .card a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #04be3c; /* Botón verde */
+    font-weight: bold;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .action-cards {
+        grid-template-columns: 1fr;
+    }
+}

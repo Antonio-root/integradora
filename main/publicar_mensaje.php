@@ -8,8 +8,8 @@ if (!isset($_SESSION['id_usuario']) && !isset($_SESSION['id_vendedor'])) {
     exit;
 }
 
-// Obtener el contenido de la publicación
-$contenido = $_POST['contenido'];
+// Obtener datos del formulario
+$contenido = isset($_POST['contenido']) ? $_POST['contenido'] : null;
 $id_negocio = isset($_POST['id_negocio']) ? $_POST['id_negocio'] : null;
 $imagen = null;
 
@@ -23,20 +23,39 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
 $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
 $id_vendedor = isset($_SESSION['id_vendedor']) ? $_SESSION['id_vendedor'] : null;
 
-// Si no se especifica un negocio, lo dejamos como NULL
-$id_negocio = ($id_negocio === null) ? NULL : $id_negocio;
+try {
+    // Verificar que el id_usuario exista si no es nulo
+    if (!is_null($id_usuario)) {
+        $query = "SELECT id_usuario FROM datosusuarios WHERE id_usuario = ?";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows === 0) {
+            die("Error: El id_usuario no existe en datosusuarios.");
+        }
+    }
 
-// SQL para insertar la publicación, sin requerir id_negocio
-$sql = "INSERT INTO publicaciones (id_usuario, id_vendedor, contenido, imagen, id_negocio) VALUES (?, ?, ?, ?, ?)";
-$stmt = $conexion->prepare($sql);
+    // Preparar la consulta SQL para insertar
+    if (!is_null($id_usuario)) {
+        $sql = "INSERT INTO publicaciones (id_usuario, contenido, imagen, id_negocio) VALUES (?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("issi", $id_usuario, $contenido, $imagen, $id_negocio);
+    } elseif (!is_null($id_vendedor)) {
+        $sql = "INSERT INTO publicaciones (id_vendedor, contenido, imagen, id_negocio) VALUES (?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("issi", $id_vendedor, $contenido, $imagen, $id_negocio);
+    }
 
-// Verifica si se ejecutó correctamente la consulta
-$stmt->bind_param("iissi", $id_usuario, $id_vendedor, $contenido, $imagen, $id_negocio);
-
-if ($stmt->execute()) {
-    echo "Publicación realizada con éxito.";
-    header('Location: comunidad.php'); // Redirigir a la comunidad
-} else {
-    echo "Error en la publicación: " . $conexion->error;
+    // Ejecutar la consulta y manejar el resultado
+    if ($stmt->execute()) {
+        echo "Publicación realizada con éxito.";
+        header('Location: comunidad.php');
+        exit;
+    } else {
+        echo "Error en la publicación: " . $conexion->error;
+    }
+} catch (Exception $e) {
+    echo "Ocurrió un error: " . $e->getMessage();
 }
 ?>

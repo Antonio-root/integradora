@@ -59,6 +59,7 @@ header {
     left: 0;
     width: 100%; /* Ocupa todo el ancho */
     z-index: 1000; /* Por encima de la barra lateral */
+    height: 70px;
 }
 
 header h1 {
@@ -144,7 +145,7 @@ main {
     margin-left: 240px; /* Espacio para la navegación lateral */
     padding: 80px 20px 20px; /* Espacio adicional para evitar el encabezado */
     min-height: 100vh;
-    background-color: #2e2e2c; /* Fondo verde militar oscuro */
+    background-color: #88b04b; /* Fondo verde militar oscuro */
 }
 
 /* Contenedor principal para las tarjetas */
@@ -216,7 +217,7 @@ main {
 }
 
 .badge {
-  background-color: #00000055;
+  background-color: forestgreen;
   padding: 5px 10px;
   border-radius: 10px;
   backdrop-filter: blur(2px);
@@ -262,12 +263,20 @@ a:hover {
         margin-left: 190px;
     }
 }
+.juntos{
+    display: flex;
+    text-align: right;
+
+}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>pagina de inicio yeaa shiit</h1>
+    <div class="juntos" > 
+    <img src="/integradora/imagenes/icono.svg" alt="icon" width="54" height="150px">
+    <h1>Together is Better</h1>
+    </div>
     <div class="hamburger" onclick="toggleMenu()">
         <div></div>
         <div></div>

@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav class="fade-in">
         <div class="nav-links">
             <div class="left-side">
-                <img src="/integradora/imagenes/icon.png" alt="icon" width="176" height="54">
+                <a href="/integradora/main/index.html"> <img src="/integradora/imagenes/icono.svg" alt="icon" width="176" height="54"> </a>
                 <h1>Together is better</h1>
             </div>
         </div>

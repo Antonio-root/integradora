@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['nombre'] = $vendedor['nombre'];
             $_SESSION['tipo'] = 'vendedor';
-            $_SESSION['id_usuario'] = $vendedor['id_vendedor'];
+            $_SESSION['id_vendedor'] = $vendedor['id_vendedor'];
             $_SESSION['apellido'] = $vendedor['apellido'];
             session_regenerate_id();
 

@@ -7,7 +7,7 @@ if(!isset($_SESSION['loggedin'])){
 
 require '../requires/conexionbd.php';
 
-$id_vendedor = $_SESSION['id_usuario'];
+$id_vendedor = $_SESSION['id_vendedor'];
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
     $nombredenegocio = $_POST['nombredenegocio'];

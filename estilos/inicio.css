@@ -8,43 +8,51 @@
 /* Estilo general */
 body {
     font-family: Arial, sans-serif;
-    background-color: #181818; /* Fondo oscuro */
+    background-color: #88b04b; /* Fondo verde militar oscuro */
     color: #f5f5f5; /* Texto claro */
     line-height: 1.6;
 }
 
 /* Encabezado */
 header {
-    background-color: #1f1f1f;
+    background-color: #3c3c3a; /* Verde militar intermedio */
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #4f4f4d; /* Línea de separación sutil */
+    position: fixed; /* Fijo en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho */
+    z-index: 1000; /* Por encima de la barra lateral */
+    height: 70px;
 }
 
 header h1 {
     font-size: 1.5rem;
-    color: #fff;
+    color: #d8d8d8; /* Texto claro */
 }
 
 .hamburger div {
     width: 25px;
     height: 3px;
-    background-color: #fff;
+    background-color: #d8d8d8;
     margin: 5px 0;
 }
 
 /* Navegación lateral */
 .nav1 {
     position: fixed;
-    top: 0;
+    top: 60px; /* Debajo del header */
     left: 0;
-    height: 100%;
-    width: 200px;
-    background-color: #1f1f1f;
+    height: calc(100% - 60px); /* Resta la altura del header */
+    width: 220px;
+    background-color: #4a4a48; /* Verde militar más fuerte */
     padding: 20px 10px;
-    border-right: 1px solid #333;
+    border-right: 1px solid #4f4f4d;
+    z-index: 900; /* Por debajo del header */
+    overflow-y: auto;
 }
 
 .nav1 nav ul {
@@ -57,7 +65,7 @@ header h1 {
 
 .nav1 nav ul li a {
     text-decoration: none;
-    color: #bdbdbd;
+    color: #d8d8d8; /* Texto claro */
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -68,17 +76,17 @@ header h1 {
 }
 
 .nav1 nav ul li a:hover {
-    background-color: #333;
+    background-color: #61615f; /* Verde militar más claro */
     color: #fff;
 }
 
-/* Estilo del menú desplegable */
+/* Menú desplegable */
 .menu {
     display: none;
     position: absolute;
     top: 60px;
     right: 20px;
-    background-color: #333;
+    background-color: #61615f;
     padding: 10px;
     list-style: none;
     border-radius: 5px;
@@ -101,36 +109,129 @@ header h1 {
 
 /* Contenido principal */
 main {
-    margin-left: 220px; /* Deja espacio para la navegación lateral */
-    padding: 20px;
+    margin-left: 240px; /* Espacio para la navegación lateral */
+    padding: 80px 20px 20px; /* Espacio adicional para evitar el encabezado */
     min-height: 100vh;
-    background-color: #181818;
+    background-color: #88b04b; /* Fondo verde militar oscuro */
 }
 
+/* Contenedor principal para las tarjetas */
 .main {
-    background-color: #1f1f1f;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-/* Estilos de los enlaces */
+/* Estilos generales para las tarjetas */
+.card {
+  perspective: 1000px;
+  width: 190px;
+  height: 254px;
+  overflow: visible;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 300ms;
+  box-shadow: 0px 0px 10px 1px #000000ee;
+  border-radius: 5px;
+}
+
+.front,
+.back {
+  background-color: #151515;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 5px;
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-content {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.card:hover .content {
+  transform: rotateY(180deg);
+}
+
+.front {
+  transform: rotateY(180deg);
+  color: white;
+}
+
+.front-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 15px;
+}
+
+.badge {
+  background-color: forestgreen;
+  padding: 5px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  width: fit-content;
+}
+
+.description {
+  box-shadow: 0px 0px 10px 5px #00000088;
+  padding: 10px;
+  background-color: #00000099;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+
+/* Enlaces */
 a {
     text-decoration: none;
-    color: #1e90ff;
+    color: #88b04b; /* Verde militar claro */
 }
 
 a:hover {
     text-decoration: underline;
+    color: #b2d39b; /* Verde más vibrante */
 }
 
 /* Diseño adaptable */
 @media (max-width: 768px) {
     .nav1 {
-        width: 150px;
+        width: 180px;
     }
 
     main {
-        margin-left: 160px;
+        margin-left: 190px;
     }
+}
+.juntos{
+    display: flex;
+    text-align: right;
+
 }

@@ -5,22 +5,32 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
+// Determinar el tipo de usuario y asignar el ID correspondiente
 $tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
+$userId = null;
 
-// Definir el ID del usuario desde la sesión
-$userId = $_SESSION['id_usuario']; // Asegúrate de que este es el nombre correcto de la variable de sesión para el ID del usuario
+if ($tipo === 'usuario' && isset($_SESSION['id_usuario'])) {
+    $userId = $_SESSION['id_usuario'];
+} elseif ($tipo === 'vendedor' && isset($_SESSION['id_vendedor'])) {
+    $userId = $_SESSION['id_vendedor'];
+} else {
+    die("Error: No se pudo determinar el ID del usuario o vendedor.");
+}
 
 // Conectar a la base de datos
 require_once '../requires/conexionbd.php';
 
-// Consulta para obtener todas las publicaciones, sin filtrar por usuario o vendedor
-$sql = "SELECT p.id_publicacion, p.contenido, p.imagen, d.nombre, d.apellido, p.id_vendedor,
-            (SELECT COUNT(*) FROM reacciones r WHERE r.id_publicacion = p.id_publicacion) AS total_reacciones,
-            (SELECT COUNT(*) FROM comentarios c WHERE c.id_publicacion = p.id_publicacion) AS total_comentarios
+// Consulta general de publicaciones
+$sql = "SELECT p.id_publicacion, p.contenido, p.imagen, 
+               COALESCE(u.nombre, d.nombre) AS nombre, 
+               COALESCE(u.apellido, d.apellido) AS apellido,
+               p.id_vendedor,
+               (SELECT COUNT(*) FROM reacciones r WHERE r.id_publicacion = p.id_publicacion) AS total_reacciones,
+               (SELECT COUNT(*) FROM comentarios c WHERE c.id_publicacion = p.id_publicacion) AS total_comentarios
         FROM publicaciones p
         LEFT JOIN datosvendedores d ON p.id_vendedor = d.id_vendedor
         LEFT JOIN datosusuarios u ON p.id_usuario = u.id_usuario
-        ORDER BY p.fecha_publicacion DESC";  // Muestra todas las publicaciones, sin filtrar por tipo
+        ORDER BY p.fecha_publicacion DESC";
 $result = $conexion->query($sql);
 
 if (!$result) {
@@ -33,6 +43,7 @@ if (!$result) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comunidad</title>
     <link rel="stylesheet" href="/integradora/estilos/comunidad.css">
 </head>
@@ -40,8 +51,8 @@ if (!$result) {
     <header>
         <h1>Comunidad</h1>
     </header>
-
     <main>
+        <!-- Noticias -->
         <aside class="left">
             <div class="news">
                 <h2>Noticias</h2>
@@ -54,213 +65,132 @@ if (!$result) {
             </div>
         </aside>
 
-        <!-- Sección de publicaciones -->
+        <!-- Publicaciones -->
         <section class="publicaciones">
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <article data-post-id="<?php echo $row['id_publicacion']; ?>">
                     <h2><?php echo htmlspecialchars($row['nombre'] . " " . $row['apellido']); ?></h2>
                     <p><?php echo htmlspecialchars($row['contenido']); ?></p>
                     <?php if ($row['imagen']) : ?>
-                        <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="Imagen">
+                        <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="Imagen de publicación">
                     <?php endif; ?>
 
-                    <!-- Contador de Reacciones -->
                     <div class="reacciones">
                         <span><?php echo $row['total_reacciones']; ?> Reacciones</span>
-                    </div>
-
-                    <!-- Contador de Comentarios -->
-                    <div class="comentarios">
-                        <span><?php echo $row['total_comentarios']; ?> Comentarios</span>
-                    </div>
-
-                    <!-- Botones de reacciones -->
-                    <div class="reacciones">
                         <button class="reaction-button" data-reaction="like">👍 Me gusta</button>
                         <button class="reaction-button" data-reaction="love">❤️ Me encanta</button>
                         <button class="reaction-button" data-reaction="angry">😡 Me enoja</button>
                     </div>
 
-                    <!-- Botón de comentarios -->
                     <div class="comentarios">
+                        <span><?php echo $row['total_comentarios']; ?> Comentarios</span>
                         <button class="comment-button">💬 Agregar comentario</button>
-                        <button class="ver-comment" data-post-id="<?php echo $row['id_publicacion']; ?>">Ver comentarios</button>
-                        <div class="comentarios-list"></div> <!-- Contenedor para comentarios cargados -->
-                        <div class="form-comentario" style="display: none;"></div> <!-- Formulario de comentarios oculto por defecto -->
+                        <button class="ver-comment">Ver comentarios</button>
+                        <div class="comentarios-list" style="display: none;"></div>
                     </div>
                 </article>
             <?php endwhile; ?>
         </section>
 
-        <!-- Perfil del usuario -->
+        <!-- Perfil -->
         <aside class="right">
             <div class="perfil">
                 <?php if ($tipo == 'vendedor'): ?>
-                    <!-- Mostrar datos del vendedor -->
                     <img src="/integradora/imagenes/vendedor_perfil.jpg" alt="Foto de perfil">
-                    <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
                 <?php else: ?>
-                    <!-- Mostrar datos del usuario -->
                     <img src="/integradora/imagenes/usuario_perfil.jpg" alt="Foto de perfil">
-                    <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
                 <?php endif; ?>
-                <button><a href="perfil.php">Mi perfil</a></button>
-                <button><a href="publicacion.php">Hacer una publicacion</a></button>
+                <p><?php echo htmlspecialchars($_SESSION['nombre'] . " " . $_SESSION['apellido']); ?></p>
+                <button><a href="mi_perfil.php">Mi perfil</a></button>
+                <button><a href="publicacion.php">Hacer una publicación</a></button>
                 <button><a href="inicio.php">Inicio</a></button>
                 <button><a href="/integradora/requires/cerrarsesion.php">Cerrar sesión</a></button>
             </div>
         </aside>
-                
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Funcionalidad para manejar reacciones
-            document.querySelectorAll('.reaction-button').forEach((button) => {
-                button.addEventListener('click', function() {
-                    const reaction = this.getAttribute('data-reaction');
-                    const postId = this.closest('article').getAttribute('data-post-id');
-                    const userId = <?php echo $userId; ?>;
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mostrar/Ocultar lista de comentarios
+            document.querySelectorAll('.ver-comment').forEach(button => {
+                button.addEventListener('click', function () {
+                    const article = this.closest('article');
+                    const commentList = article.querySelector('.comentarios-list');
 
-                    // Desmarcar otras reacciones si ya están seleccionadas
-                    document.querySelectorAll('.reaction-button').forEach((btn) => {
-                        btn.classList.remove('selected');
-                    });
-
-                    // Marcar la reacción seleccionada
-                    this.classList.add('selected');
-
-                    // Asegurarse de que el usuario no acumule reacciones
-                    fetch('check_reaction.php', {
-                        method: 'POST',
-                        body: JSON.stringify({ postId, userId }),
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.reacted) {
-                            // Si ya ha reaccionado, actualizar la reacción
-                            fetch('update_reaction.php', {
-                                method: 'POST',
-                                body: JSON.stringify({ postId, userId, reaction }),
-                                headers: { 'Content-Type': 'application/json' }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('Reacción actualizada:', data);
-                                updateReactionCount(postId);
-                            });
-                        } else {
-                            // Si no ha reaccionado, agregar nueva reacción
-                            fetch('add_reaction.php', {
-                                method: 'POST',
-                                body: JSON.stringify({ postId, userId, reaction }),
-                                headers: { 'Content-Type': 'application/json' }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('Reacción agregada:', data);
-                                updateReactionCount(postId);
-                            });
-                        }
-                    })
-                    .catch(err => console.error('Error en la solicitud de reacción:', err));
+                    if (commentList.style.display === 'none' || commentList.style.display === '') {
+                        fetchComments(article.dataset.postId, commentList);
+                        commentList.style.display = 'block';
+                    } else {
+                        commentList.style.display = 'none';
+                    }
                 });
             });
 
-            // Función para actualizar el contador de reacciones
-            function updateReactionCount(postId) {
-                fetch('get_reaction_count.php', {
-                    method: 'POST',
-                    body: JSON.stringify({ postId }),
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const reactionCountElement = document.querySelector(`article[data-post-id="${postId}"] .total_reacciones`);
-                    reactionCountElement.textContent = `${data.total_reacciones} Reacciones`;
-                })
-                .catch(err => console.error('Error al obtener el conteo de reacciones:', err));
-            }
+            // Agregar comentario
+            document.querySelectorAll('.comment-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const article = this.closest('article');
+                    const commentForm = article.querySelector('.comment-form');
 
-            // Mostrar el formulario para agregar comentario
-            document.querySelectorAll('.comment-button').forEach((button) => {
-                button.addEventListener('click', function() {
-                    const postId = this.closest('article').getAttribute('data-post-id');
-                    const formContainer = this.closest('article').querySelector('.form-comentario');
+                    if (!commentForm) {
+                        const newCommentForm = document.createElement('div');
+                        newCommentForm.classList.add('comment-form');
+                        newCommentForm.innerHTML = `
+                            <textarea placeholder="Escribe tu comentario..."></textarea>
+                            <button class="submit-comment">Enviar</button>
+                        `;
+                        article.querySelector('.comentarios').appendChild(newCommentForm);
 
-                    // Mostrar el formulario
-                    formContainer.style.display = 'block';
+                        // Enviar comentario
+                        newCommentForm.querySelector('.submit-comment').addEventListener('click', function () {
+                            const content = newCommentForm.querySelector('textarea').value;
+                            if (content.trim() === '') return alert('Comentario vacío');
 
-                    // Agregar el evento para enviar el comentario
-                    formContainer.innerHTML = `
-                        <textarea id="comentario-texto" placeholder="Escribe tu comentario..."></textarea>
-                        <button class="submit-comment">Enviar</button>
-                    `;
-
-                    const submitButton = formContainer.querySelector('.submit-comment');
-                    submitButton.addEventListener('click', function() {
-                        const comentarioTexto = formContainer.querySelector('#comentario-texto').value;
-                        const userId = <?php echo $userId; ?>;  // Usar la variable de sesión de PHP para el ID de usuario
-
-                        if (comentarioTexto.trim() !== '') {
+                            const postId = article.dataset.postId;
                             fetch('add_comment.php', {
                                 method: 'POST',
-                                body: JSON.stringify({ postId, userId, comentario: comentarioTexto }),
+                                body: JSON.stringify({ postId, userId: <?php echo $userId; ?>, comentario: content }),
                                 headers: { 'Content-Type': 'application/json' }
                             })
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
                                     alert('Comentario agregado con éxito');
-                                    formContainer.style.display = 'none';  // Ocultar el formulario después de agregar el comentario
-                                    // También puedes actualizar la lista de comentarios si es necesario
+                                    fetchComments(postId, article.querySelector('.comentarios-list'));
+                                    newCommentForm.remove();
                                 } else {
-                                    alert('Hubo un error al agregar el comentario');
+                                    alert('Error al agregar comentario.');
                                 }
-                            })
-                            .catch(err => console.error('Error al agregar comentario:', err));
-                        } else {
-                            alert('Por favor, escribe un comentario.');
-                        }
-                    });
-                });
-            });
-
-            // Mostrar comentarios al hacer clic en "Ver comentarios"
-            document.querySelectorAll('.ver-comment').forEach((button) => {
-                button.addEventListener('click', function() {
-                    const postId = this.getAttribute('data-post-id');
-
-                    // Hacer una solicitud para obtener los comentarios
-                    fetch('get_comments.php', {
-                        method: 'POST',
-                        body: JSON.stringify({ postId }),
-                        headers: { 'Content-Type': 'application/json' }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const commentList = this.closest('article').querySelector('.comentarios-list');
-                        commentList.innerHTML = ''; // Limpiar comentarios existentes
-
-                        if (data.success && data.comentarios.length > 0) {
-                            data.comentarios.forEach(comment => {
-                                const commentElement = document.createElement('div');
-                                commentElement.classList.add('comentario-item');
-                                commentElement.innerHTML = `<strong>${comment.nombre} ${comment.apellido}</strong>: ${comment.comentario}`;
-                                commentList.appendChild(commentElement);
                             });
-                        } else {
-                            const messageElement = document.createElement('p');
-                            messageElement.textContent = data.message || 'No hay comentarios aún.';
-                            commentList.appendChild(messageElement);
-                        }
-                    })
-                    .catch(err => console.error('Error al cargar comentarios:', err));
+                        });
+                    } else {
+                        // Ocultar el formulario si ya está visible
+                        commentForm.remove();
+                    }
                 });
             });
         });
-    </script>
 
+        function fetchComments(postId, commentList) {
+            fetch('get_comments.php', {
+                method: 'POST',
+                body: JSON.stringify({ postId }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    commentList.innerHTML = '';
+                    if (data.success) {
+                        data.comentarios.forEach(comment => {
+                            const div = document.createElement('div');
+                            div.textContent = `${comment.nombre}: ${comment.comentario}`;
+                            commentList.appendChild(div);
+                        });
+                    } else {
+                        commentList.textContent = 'No hay comentarios.';
+                    }
+                });
+        }
+    </script>
 </body>
 </html>

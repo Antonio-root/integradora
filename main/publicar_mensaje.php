@@ -3,59 +3,71 @@ session_start();
 require_once '../requires/conexionbd.php';
 
 // Verifica si el usuario está logueado
-if (!isset($_SESSION['id_usuario']) && !isset($_SESSION['id_vendedor'])) {
+if (!isset($_SESSION['loggedin'])) {
     header("Location: /integradora/requires/login.php");
     exit;
 }
 
-// Obtener datos del formulario
-$contenido = isset($_POST['contenido']) ? $_POST['contenido'] : null;
-$id_negocio = isset($_POST['id_negocio']) ? $_POST['id_negocio'] : null;
-$imagen = null;
+// Inicializar variables de usuario o vendedor según la sesión
+$id_usuario = null;
+$id_vendedor = null;
 
-// Si hay una imagen, manejarla
-if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-    $imagen = 'uploads/' . basename($_FILES['imagen']['name']);
-    move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen);
+if ($_SESSION['tipo'] === 'usuario') {
+    $id_usuario = $_SESSION['id_usuario'];
+} elseif ($_SESSION['tipo'] === 'vendedor') {
+    $id_vendedor = $_SESSION['id_vendedor'];
+} else {
+    die("Error: Tipo de usuario no identificado.");
 }
 
-// Obtener el ID de usuario o vendedor desde la sesión
-$id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
-$id_vendedor = isset($_SESSION['id_vendedor']) ? $_SESSION['id_vendedor'] : null;
+// Validar que se haya enviado el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $contenido = $_POST['contenido'] ?? null;
+    $id_negocio = $_POST['id_negocio'] ?? null;
+    $imagen = null;
 
-try {
-    // Verificar que el id_usuario exista si no es nulo
-    if (!is_null($id_usuario)) {
-        $query = "SELECT id_usuario FROM datosusuarios WHERE id_usuario = ?";
-        $stmt = $conexion->prepare($query);
-        $stmt->bind_param("i", $id_usuario);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows === 0) {
-            die("Error: El id_usuario no existe en datosusuarios.");
+    // Manejar la subida de imágenes
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $imagen = 'uploads/' . basename($_FILES['imagen']['name']);
+        if (!move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen)) {
+            die("Error al subir la imagen.");
         }
     }
 
-    // Preparar la consulta SQL para insertar
-    if (!is_null($id_usuario)) {
-        $sql = "INSERT INTO publicaciones (id_usuario, contenido, imagen, id_negocio) VALUES (?, ?, ?, ?)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("issi", $id_usuario, $contenido, $imagen, $id_negocio);
-    } elseif (!is_null($id_vendedor)) {
-        $sql = "INSERT INTO publicaciones (id_vendedor, contenido, imagen, id_negocio) VALUES (?, ?, ?, ?)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("issi", $id_vendedor, $contenido, $imagen, $id_negocio);
+    // Validar que el contenido no esté vacío
+    if (empty($contenido)) {
+        echo "El contenido de la publicación no puede estar vacío.";
+        exit;
     }
 
-    // Ejecutar la consulta y manejar el resultado
-    if ($stmt->execute()) {
-        echo "Publicación realizada con éxito.";
-        header('Location: comunidad.php');
-        exit;
-    } else {
-        echo "Error en la publicación: " . $conexion->error;
+    try {
+        // Preparar consulta SQL para insertar publicación
+        $sql = "INSERT INTO publicaciones (id_usuario, id_vendedor, contenido, imagen, id_negocio) 
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+
+        // Asignar valores a los parámetros según el tipo de sesión
+        $stmt->bind_param(
+            "iissi", 
+            $id_usuario, 
+            $id_vendedor, 
+            $contenido, 
+            $imagen, 
+            $id_negocio
+        );
+
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            echo "Publicación realizada con éxito.";
+            header('Location: comunidad.php'); // Redirigir a la comunidad
+            exit;
+        } else {
+            echo "Error en la publicación: " . $stmt->error;
+        }
+    } catch (Exception $e) {
+        echo "Error al procesar la publicación: " . $e->getMessage();
     }
-} catch (Exception $e) {
-    echo "Ocurrió un error: " . $e->getMessage();
+} else {
+    echo "Método de solicitud no permitido.";
 }
 ?>

@@ -51,6 +51,7 @@ form {
     flex-direction: column;
     display: flex;
     gap: 5px;
+    background-image: url(/integradora/main/Negoci2.jpg);
 }
 
 /* Estilo para el título */

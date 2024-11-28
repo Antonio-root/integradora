@@ -122,8 +122,7 @@ form label {
     font-weight: bold;
 }
 
-form input,
-form textarea {
+form input,form textarea, form select {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
@@ -197,7 +196,15 @@ form button:hover {
         <input type="text" name="nombredenegocio" placeholder="Nombre del negocio">
         <br>
         <label for="ubicacion">Ubicacion de tu negocio</label>
-        <input type="text" name="ubicacion" placeholder="Ubicacion del negocio">
+        <select name="ubicacion" id="ubicacion">
+                <option value="">Selecciona tu zona</option>
+                <option value="Monterrey">Monterrey</option>
+                <option value="Apodaca">Apodaca</option>
+                <option value="San Nicolas">San Nicolas</option>
+                <option value="Escobedo">Escobedo</option>                    
+                <option value="Guadalupe">Guadalupe</option>
+                <option value="San Pedro">San Pedro</option>
+            </select>
         <br>
         <label for="horarios">Horario de tu negocio</label>
         <input type="text" name="horarios" placeholder="Horario del negocio">
@@ -206,7 +213,14 @@ form button:hover {
         <input type="text" name="contacto" placeholder="Contacto del negocio">
         <br>
         <label for="tipo">Tipo de negocio</label>
-        <input type="text" name="tipo" placeholder="Tipo de negocio">
+        <select name="tipo" id="tipo">
+                <option value="">Categoria</option>            
+                <option value="Ferreterias">Ferreteria</option>
+                <option value="Papelerias">Papelerias</option>
+                <option value="Comidas">Comidas</option>
+                <option value="Abarrotes">Abarrotes</option>                    
+                <option value="Servicios y mas">Servicios y mas</option>
+            </select>
         <br>
         <label for="descrpcion">Descripcion</label>
         <textarea name="descripcion" placeholder="Descripcion del negocio"></textarea>

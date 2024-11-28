@@ -1,18 +1,35 @@
 <?php
 session_start();
-if(!isset($_SESSION['loggedin'])){
+if (!isset($_SESSION['loggedin'])) {
     header('Location: /integradora/requires/login.php');
     exit;
 }
 
+require_once '../requires/conexionbd.php';
 
-$tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario'; 
-//sql para obtener el nombre de usuario
+// Obtener datos del usuario desde la sesión
+$tipo = isset($_SESSION['tipo']) ? $_SESSION['tipo'] : 'usuario';
 $nombre = $_SESSION['nombre'];
 
+// Validar si el vendedor tiene un ID asignado en la sesión
+if (!isset($_SESSION['id_vendedor'])) {
+    die("ERROR: No se encontró el ID del vendedor en la sesión.");
+}
+$id_vendedor = $_SESSION['id_vendedor'];
 
+// Consulta para obtener los negocios del vendedor
+try {
+    $query = "SELECT id_negocio, nombredenegocio, imagen, descripcion FROM datosnegocios WHERE id_vendedor = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $id_vendedor);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $negocios = $result->fetch_all(MYSQLI_ASSOC); // Obtiene todas las filas como un array asociativo
+    $stmt->close();
+} catch (Exception $e) {
+    die("Error al obtener los negocios: " . $e->getMessage());
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,11 +38,12 @@ $nombre = $_SESSION['nombre'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/integradora/estilos/editarnegocios.css">
     <title>Editar Perfil</title>
+</head>
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar">
         <div class="nav-left">
-            <img src="/integradora/imagenes/icon.png" alt="Foto del usuario" class="user-photo">
+            <a href="index.php"> <img src="/integradora/imagenes/icono.svg" height="100px" width="50px" alt="Foto del usuario" class="user-photo"></a>
         </div>
         <div class="nav-right">
             <button><a href="inicio.php">Inicio</a></button>
@@ -35,18 +53,36 @@ $nombre = $_SESSION['nombre'];
 
     <!-- Contenedor principal -->
     <main class="main-content">
-        <section class="welcome">
-            <img src="/integradora/imagenes/foto_usuario.png" alt="Foto del usuario" class="user-avatar">
-            <h1>Bienvenido, <?php echo $nombre ?></h1>
-            <p>Gestiona tu perfil y configuraciones para personalizar tu experiencia.</p>
+    <section class="welcome">
+    <?php if (!empty($negocios)): ?>
+                <?php foreach ($negocios as $negocio): ?>
+                    <div class="card">
+                        <img src="<?= htmlspecialchars($negocio['imagen']); ?>" 
+                             alt="Imagen de <?= htmlspecialchars($negocio['nombredenegocio']); ?>" 
+                             class="user-avatar">
+                            <h1>Bienvenido <?php echo $nombre ?> </h1>
+                            <p><?= htmlspecialchars($negocio['descripcion']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No tienes negocios registrados aún.</p>
+            <?php endif; ?>
         </section>
 
-        <!-- Tarjetas de acciones -->
+        <!-- Tarjetas de negocios -->
         <section class="action-cards">
+            
+
+        <!-- Tarjetas de acciones -->
+        
             <div class="card">
                 <h3>Agregar imagen</h3>
-                <p>Sube una nueva imagen para tu negocio o perfil.</p>
-                <a href="#">Subir imagen</a>
+                <p>Sube una nueva imagen para tu negocio o negocios.</p>
+                <form action="imagen_negocio.php" method="post" enctype="multipart/form-data">
+                    <label for="imagen">Subir Imagen:</label>
+                    <input type="file" name="imagen" id="imagen" required>
+                    <button type="submit">Subir Imagen</button>
+                </form>
             </div>
             <div class="card">
                 <h3>Hacer publicación</h3>
@@ -65,8 +101,8 @@ $nombre = $_SESSION['nombre'];
             </div>
             <div class="card">
                 <h3>Editar Info</h3>
-                <p>Actualiza la información de tu negocio o perfil.</p>
-                <a href="registronegocios.php">Editar perfil</a>
+                <p>Actualiza la información de tu negocio o negocios.</p>
+                <a href="registronegocios.php">Editar negocios</a>
             </div>
         </section>
     </main>

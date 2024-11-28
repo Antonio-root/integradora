@@ -10,7 +10,9 @@
 header {
     background-color: #113003;
     color: white;
-    padding: 10px 0;
+    padding: 10px ;
+    margin: 10px;
+    border-radius: 10px;
 }
 
 .nav-links{
@@ -56,8 +58,9 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-image: url(cool-background.png);
     background-size: cover;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 
@@ -73,18 +76,24 @@ header {
 }
 
 /* About Us Section */
-#about-us, #comunidad, #contact {
+#about-us, #comunidad, #contact, #negocios {
     padding: 50px;
     text-align: center;
     min-height: 50vh;
+    background-color: #7fa136; /* Soft background */
+    border-radius: 10px;
+    margin: 10px;
+
 }
 
 /* Footer Styles */
 footer {
-    background-color: #C33130;
-    color: white;
+  background-color: #113003; /* Soft background */
+  color: white;
     text-align: center;
     padding: 10px 0;
+    margin: 10px;
+    border-radius: 10px;
 }
 @keyframes fadeIn {
     from {
@@ -121,10 +130,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: rgb(43, 255, 0);
   font-weight: 600;
+  font-size: large;
   letter-spacing: 1px;
   transition: flex 0.1s linear;
+  background-size: cover;
  
 }
 
@@ -135,28 +146,28 @@ footer {
 
 .color:nth-child(1) {
   background: #264653;
-  background-size: contain;
+  background-size: cover;
   
 }
 
 .color:nth-child(2) {
   background: #2a9d8f;
-  background-size: contain;
+  background-size: cover;
 }
 
 .color:nth-child(3) {
   background: #e9c46a;
-  background-size: contain;
+  background-size: cover;
 }
 
 .color:nth-child(4) {
   background: #f4a261;
-  background-size: contain;
+  background-size: cover;
 }
 
 .color:nth-child(5) {
   background: #e76f51;
-  background-size: contain;
+  background-size: cover;
 }
 
 .color:hover {
@@ -281,3 +292,175 @@ footer {
     
   }
   
+  .negocios-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .negocio {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .negocio img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.6s ease;
+  }
+  
+  .negocio:hover img {
+    scale: 1.1;
+    opacity: 0.3;
+  }
+  
+  .negocio__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 90%;
+    height: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    opacity: 0;
+    border-radius: 10px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .negocio:hover .negocio__content {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 1;
+  }
+  
+  .negocio__title {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .negocio__description {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    text-align: center;
+  }
+  
+  .negocio-button {
+    display: block;
+    margin: 15px auto 0;
+    padding: 8px 16px;
+    background-color: #ff0f7b;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .negocio-button:hover {
+    background-color: #f89b29;
+  }
+  
+  /* Estilos para la sección about-us */
+#about-us {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centramos el contenido horizontalmente */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  gap: 20px;
+}
+
+.about-card-container {
+  width: 500px; /* Ajusta el ancho según sea necesario */
+  height: 400px; /* Ajusta la altura si es necesario */
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin: 20px; /* Espacio entre las cards */
+}
+
+.about-card {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.about-card .front-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.about-card .front-content p {
+  font-size: 32px;
+  font-weight: 700;
+  opacity: 1;
+  background: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.about-card .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  background: linear-gradient(-45deg, #29f833 0%, #113003 100%);
+  color: #e8e8e8;
+  padding: 20px;
+  line-height: 1.5;
+  border-radius: 5px;
+  pointer-events: none;
+  transform: translateX(-96%);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.about-card .content .heading {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.about-card:hover .content {
+  transform: translateY(0);
+}
+
+.about-card:hover .front-content {
+  transform: translateX(-30%);
+}
+
+.about-card:hover .front-content p {
+  opacity: 0;
+}

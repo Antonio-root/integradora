@@ -14,6 +14,7 @@ $sql = "SELECT
             dn.horarios,
             dn.contacto,
             dn.tipo,
+            dn.imagen,
             dn.descripcion,
             CONCAT(dv.nombre, ' ', dv.apellido) AS nombre_vendedor
         FROM datosnegocios dn
@@ -36,7 +37,7 @@ $result = $conexion->query($sql);
 
 <header>
     <div class="juntos" > 
-    <img src="/integradora/imagenes/icono.svg" alt="icon" width="54" height="150px">
+    <a href="index.php"> <img src="/integradora/imagenes/icono.svg" alt="icon" width="54" height="150px"></a>
     <h1>Together is Better</h1>
     </div>
     <div class="hamburger" onclick="toggleMenu()">
@@ -60,7 +61,7 @@ $result = $conexion->query($sql);
 
 <!-- Menú desplegable -->
 <ul class="menu" id="menu">
-    <li><a href="perfil.php">Perfil</a></li>
+    <li><a href="mi_perfil.php">Perfil</a></li>
     <li><a href="mensajes.php">Ver mensajes</a></li>
     <li><a href="notificaciones.php">Notificaciones</a></li>
     <?php if ($tipo === 'vendedor'): ?>
@@ -83,6 +84,9 @@ $result = $conexion->query($sql);
                             <div class="title">
                                 <p><strong>Negocio:</strong> <?php echo htmlspecialchars($row['nombre_negocio']); ?></p>
                                 <p><strong>Contacto:</strong> <?php echo htmlspecialchars($row['contacto']); ?></p>
+                                <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($row['ubicacion']); ?></p>
+                                <p><strong>Horarios:</strong> <?php echo htmlspecialchars($row['horarios']); ?></p>
+                                <p><strong>Vendedor:</strong> <?php echo htmlspecialchars($row['nombre_vendedor']); ?></p>
                             </div>
                             <div class="description">
                                 <?php echo htmlspecialchars($row['descripcion']); ?>
@@ -91,10 +95,10 @@ $result = $conexion->query($sql);
                     </div>
                     <!-- Cara trasera -->
                     <div class="back">
-                        <div class="back-content">
-                            <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($row['ubicacion']); ?></p>
-                            <p><strong>Horarios:</strong> <?php echo htmlspecialchars($row['horarios']); ?></p>
-                            <p><strong>Vendedor:</strong> <?php echo htmlspecialchars($row['nombre_vendedor']); ?></p>
+                    <div class="back-content">
+                         <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt=""> 
+                        
+                            
                         </div>
                     </div>
                 </div>
@@ -104,6 +108,7 @@ $result = $conexion->query($sql);
         <p>No hay negocios registrados.</p>
     <?php endif; ?>
 </div>
+
 
 
 </main>

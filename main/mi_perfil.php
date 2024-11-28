@@ -67,5 +67,6 @@ if (isset($_SESSION['id_usuario'])) {
         <p>No se pudo cargar la información del perfil.</p>
     <?php endif; ?>
     <a href="editar_perfil.php">Editar Perfil</a>
+    <a href="inicio.php">Inicio</a>
 </body>
 </html>

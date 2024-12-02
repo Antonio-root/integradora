@@ -110,7 +110,6 @@
                     <li><a href="inicio.php">Inicio</a></li>
                     <li><a href="equipo.html">Conocenos</a></li>
                     <li><a href="comunidad.php">Comunidad</a></li>
-                    <li><a href="redes.html">Redes sociales</a></li>
                 </ul>
             </div>
         </nav>
@@ -222,8 +221,34 @@
     
     <section id="contact" class="fade-in">
         <h2>Contacto</h2>
-        <p>Tienes preguntas? aqui puedes encontrarnos</p>
-        <p>aqui va la lista de contacto usando los iconos  de redes sociales</p>
+        <form action="RA.php" class="form" method="post">
+            <header>Formulario</header>
+            <label for="nombre">¿Cuál es tu nombre?</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre">
+            
+            <label for="pregunta">Pregunta</label>
+            <input type="text" name="pregunta" id="pregunta" placeholder="Escribe tu pregunta">
+
+            <label for="respuestas">Respuestas</label>
+            <input type="text" name="respuesta1" placeholder="1. respuesta">
+            <input type="text" name="respuesta2" placeholder="2. respuesta">
+            <input type="text" name="respuesta3" placeholder="3. respuesta">
+            <input type="text" name="respuesta4" placeholder="4. respuesta">
+        
+            <fieldset class="form2">
+                <legend>¿Qué tan fácil de usar es el menú principal?</legend>
+                <input type="radio" name="opcion1" id="muy-facil" value="Muy Fácil" checked>
+                <label for="muy-facil">Muy fácil</label>
+                <br>
+                <input type="radio" name="opcion1" id="facil" value="Fácil">
+                <label for="facil">Fácil</label>
+                <br>
+                <input type="radio" name="opcion1" id="poco-facil" value="Poco fácil">
+                <label for="poco-facil">Poco fácil</label>
+            </fieldset>
+
+            <input type="submit" name="enviar" id="enviar" value="Enviar">
+        </form>
 
     </section>
 

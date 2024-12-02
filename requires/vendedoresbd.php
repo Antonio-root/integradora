@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['id_vendedor'] = $id_vendedor; // ID del vendedor
             $_SESSION['tipo'] = 'vendedor'; // Tipo de usuario
             $_SESSION['nombre'] = $nombre; // Nombre del vendedor
+            $_SESSION['apellido'] = $apellido;
 
             header('Location: /integradora/main/registronegocios.php');
             exit;

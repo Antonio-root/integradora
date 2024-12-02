@@ -1,136 +1,145 @@
 /* Reset de márgenes y padding */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Estilo general */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #88b04b; /* Fondo verde militar oscuro */
-    color: #f5f5f5; /* Texto claro */
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  background-color: #88b04b; /* Fondo verde militar oscuro */
+  color: #f5f5f5; /* Texto claro */
+  line-height: 1.6;
 }
 
 /* Encabezado */
 header {
-    background-color: #3c3c3a; /* Verde militar intermedio */
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #4f4f4d; /* Línea de separación sutil */
-    position: fixed; /* Fijo en la parte superior */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ocupa todo el ancho */
-    z-index: 1000; /* Por encima de la barra lateral */
-    height: 70px;
+  background-color: #3c3c3a; /* Verde militar intermedio */
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4f4f4d; /* Línea de separación sutil */
+  position: fixed; /* Fijo en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa todo el ancho */
+  z-index: 1000; /* Por encima de la barra lateral */
+  height: 70px;
 }
 
 header h1 {
-    font-size: 1.5rem;
-    color: #d8d8d8; /* Texto claro */
+  font-size: 1.5rem;
+  color: #d8d8d8; /* Texto claro */
 }
 
 .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: #d8d8d8;
-    margin: 5px 0;
+  width: 25px;
+  height: 3px;
+  background-color: #d8d8d8;
+  margin: 5px 0;
 }
 
 /* Navegación lateral */
 .nav1 {
-    position: fixed;
-    top: 60px; /* Debajo del header */
-    left: 0;
-    height: calc(100% - 60px); /* Resta la altura del header */
-    width: 220px;
-    background-color: #4a4a48; /* Verde militar más fuerte */
-    padding: 20px 10px;
-    border-right: 1px solid #4f4f4d;
-    z-index: 900; /* Por debajo del header */
-    overflow-y: auto;
+  position: fixed;
+  top: 60px; /* Debajo del header */
+  left: 0;
+  height: calc(100% - 60px); /* Resta la altura del header */
+  width: 220px;
+  background-color: #4a4a48; /* Verde militar más fuerte */
+  padding: 20px 10px;
+  border-right: 1px solid #4f4f4d;
+  z-index: 900; /* Por debajo del header */
+  overflow-y: auto;
 }
 
 .nav1 nav ul {
-    list-style: none;
+  list-style: none;
 }
 
 .nav1 nav ul li {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .nav1 nav ul li a {
-    text-decoration: none;
-    color: #d8d8d8; /* Texto claro */
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  text-decoration: none;
+  color: #d8d8d8; /* Texto claro */
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .nav1 nav ul li a:hover {
-    background-color: #61615f; /* Verde militar más claro */
-    color: #fff;
+  background-color: #61615f; /* Verde militar más claro */
+  color: #fff;
 }
 
 /* Menú desplegable */
 .menu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: #61615f;
-    padding: 10px;
-    list-style: none;
-    border-radius: 5px;
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #61615f;
+  padding: 10px;
+  list-style: none;
+  border-radius: 5px;
 }
 
 .menu li {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .menu li a {
-    text-decoration: none;
-    color: #fff;
-    display: block;
+  text-decoration: none;
+  color: #fff;
+  display: block;
 }
 
 /* Clase para mostrar menú desplegable */
 .menu.show {
-    display: block;
+  display: block;
 }
 
 /* Contenido principal */
 main {
-    margin-left: 240px; /* Espacio para la navegación lateral */
-    padding: 80px 20px 20px; /* Espacio adicional para evitar el encabezado */
-    min-height: 100vh;
-    background-color: #88b04b; /* Fondo verde militar oscuro */
+  margin-left: 240px; /* Espacio para la navegación lateral */
+  padding: 80px 20px 20px; /* Espacio adicional para evitar el encabezado */
+  min-height: 100vh;
+  background-color: #88b04b; /* Fondo verde militar oscuro */
+  max-width: max-content;
 }
 
 /* Contenedor principal para las tarjetas */
 .main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste de columnas */
   gap: 20px;
   padding: 20px;
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
 }
 
 /* Estilos generales para las tarjetas */
 .card {
   perspective: 1000px;
-  width: 190px;
-  height: 254px;
-  overflow: visible;
+  width: 100%; /* Se ajusta automáticamente según el espacio disponible */
+  height: 350px; /* Altura ajustada */
+  overflow: hidden; /* Asegura que nada sobresalga */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  background-color: #151515;
 }
 
+/* Contenido de las tarjetas */
 .content {
   width: 100%;
   height: 100%;
@@ -142,12 +151,19 @@ main {
 
 .front,
 .back {
-  background-color: #151515;
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: 5px;
+}
+
+.front {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
 }
 
 .back {
@@ -158,14 +174,15 @@ main {
 }
 
 .back-content {
-  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 15px;
   text-align: center;
- 
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Asegura que la imagen no sobresalga del contenedor */
+  border-radius: 10px;
 }
 
 .card:hover .content {
@@ -174,53 +191,19 @@ main {
 
 .front {
   transform: rotateY(180deg);
-  color: white;
 }
 
-.front-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 15px;
+.title, .description {
+  font-size: 0.9rem;
 }
 
 .badge {
   background-color: forestgreen;
   padding: 5px 10px;
   border-radius: 10px;
-  backdrop-filter: blur(2px);
-  width: fit-content;
 }
-
-.description {
-  box-shadow: 0px 0px 10px 5px #00000088;
-  padding: 10px;
-  background-color: #00000099;
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
-  font-size: 0.9rem;
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
-
-
 
 /* Nueva clase para la imagen de la parte trasera */
-.back-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
 .back-content img {
   width: 100%;
   height: 100%;
@@ -231,55 +214,21 @@ main {
 }
 
 .card:hover .back-content img {
-  opacity: 0.7; /* Aumenta la visibilidad de la imagen al hacer hover */
-}
-
-/* Asegura que la información de la parte trasera aparezca en el hover */
-.card:hover .back-content {
   opacity: 1;
 }
 
-/* Asegura que las cards tengan un tamaño consistente */
-.card {
-  width: 300px; /* Ajusta según tu diseño */
-  height: 400px; /* Ajusta según tu diseño */
-  margin: 20px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-
-
-
-/* Enlaces */
-a {
-    text-decoration: none;
-    color: #88b04b; /* Verde militar claro */
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #b2d39b; /* Verde más vibrante */
-}
-
-/* Diseño adaptable */
+/* Responsividad */
 @media (max-width: 768px) {
-    .nav1 {
-        width: 180px;
-    }
+  .main {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajuste en pantallas más pequeñas */
+  }
 
-    main {
-        margin-left: 190px;
-    }
+  .card {
+    height: 300px; /* Altura ajustada para pantallas más pequeñas */
+  }
 }
-.juntos{
-    display: flex;
-    text-align: right;
 
+.juntos {
+  display: flex;
+  text-align: right;
 }

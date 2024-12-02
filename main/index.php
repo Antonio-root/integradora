@@ -220,37 +220,42 @@
     
     
     <section id="contact" class="fade-in">
-        <h2>Contacto</h2>
-        <form action="RA.php" class="form" method="post">
-            <header>Formulario</header>
-            <label for="nombre">¿Cuál es tu nombre?</label>
-            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre">
-            
-            <label for="pregunta">Pregunta</label>
-            <input type="text" name="pregunta" id="pregunta" placeholder="Escribe tu pregunta">
-
-            <label for="respuestas">Respuestas</label>
-            <input type="text" name="respuesta1" placeholder="1. respuesta">
-            <input type="text" name="respuesta2" placeholder="2. respuesta">
-            <input type="text" name="respuesta3" placeholder="3. respuesta">
-            <input type="text" name="respuesta4" placeholder="4. respuesta">
+    <form action="RA.php" class="form" method="post">
+        <header>Tu opinion es importante</header>
         
-            <fieldset class="form2">
-                <legend>¿Qué tan fácil de usar es el menú principal?</legend>
-                <input type="radio" name="opcion1" id="muy-facil" value="Muy Fácil" checked>
-                <label for="muy-facil">Muy fácil</label>
-                <br>
-                <input type="radio" name="opcion1" id="facil" value="Fácil">
-                <label for="facil">Fácil</label>
-                <br>
-                <input type="radio" name="opcion1" id="poco-facil" value="Poco fácil">
-                <label for="poco-facil">Poco fácil</label>
-            </fieldset>
+        <label for="numero">Escribe tu numero de celular</label>
+        <input type="number" name="numero" id="numero" placeholder="Telefono">
+        
+        <label for="nombre">¿Cuál es tu nombre?</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Tu nombre">
+        
+        <label for="pregunta">Pregunta</label>
+        <input type="text" name="pregunta" id="pregunta" placeholder="Escribe tu pregunta">
 
-            <input type="submit" name="enviar" id="enviar" value="Enviar">
-        </form>
+        <label for="respuestas">Respuestas</label>
+        <input type="text" name="respuesta1" placeholder="1. respuesta">
+        <input type="text" name="respuesta2" placeholder="2. respuesta">
+        <input type="text" name="respuesta3" placeholder="3. respuesta">
+        <input type="text" name="respuesta4" placeholder="4. respuesta">
+    
+        <fieldset class="form2">
+            <legend>¿Qué tan fácil de usar es el menú principal?</legend>
+            <input type="radio" name="opcion1" id="muy-facil" value="Muy Fácil" checked>
+            <label for="muy-facil">Muy fácil</label>
+            <br>
+            <input type="radio" name="opcion1" id="facil" value="Fácil">
+            <label for="facil">Fácil</label>
+            <br>
+            <input type="radio" name="opcion1" id="poco-facil" value="Poco fácil">
+            <label for="poco-facil">Poco fácil</label>
+        </fieldset>
 
-    </section>
+        <input type="submit" name="enviar" value="Enviar">
+        <input type="submit" name="actualizar" value="Actualizar">
+        <input type="submit" name="eliminar" value="Eliminar">
+    </form>
+</section>
+
 
     <footer class="animate__animated animate__fadeIn">
         <p>Copyright © Together is better 2024</p>
